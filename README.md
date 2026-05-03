@@ -55,7 +55,7 @@ A "Cloud-Brain, Edge-Body" project using Raspberry Pi Zero 2 W and the AI Camera
 
 ## 🛠️ Setting Up Your Environment
 
-To run the projects in this lab, we recommend using **Python 3.10+**.
+To run the python projects in this lab, we recommend using **Python 3.10+**.
 
 1.  **Clone the Repo**:
     ```bash
