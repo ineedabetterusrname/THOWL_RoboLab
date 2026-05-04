@@ -92,12 +92,12 @@ A "Cloud-Brain, Edge-Body" project using Raspberry Pi Zero 2 W and the AI Camera
 
 ## 🛠️ Setting Up Your Environment
 
-To run the projects in this lab, we recommend using **Python 3.10+**.
+To run the python projects in this lab, we recommend using **Python 3.10+**.
 
 1.  **Clone the Repo**:
     ```bash
     git clone https://github.com/ineedabetterusrname/THOWL_RoboLab.git
-    cd Robo_Lab_Projects
+    cd THOWL_RoboLab
     ```
 2.  **Install Base Requirements**:
     Each project has its own `requirements.txt` or README. However, for most robot tasks, you will need:
