@@ -32,6 +32,43 @@ The UR10e is a "Collaborative Robot" (Cobot), but it is still a powerful machine
 
 ---
 
+## 🦾 About the UR10e Robot
+
+The UR10e is a **Collaborative Robot (Cobot)** designed to work alongside humans. It features a 10kg payload and a 1300mm reach, making it ideal for a wide range of tasks from precision assembly to heavy lifting.
+
+### Hardware Components
+The complete robot system consists of three primary components:
+
+![UR10e System Components](https://manuals.plus/wp-content/uploads/2021/02/UR10e-Robot-System-Components.png)
+
+*   **Robot Arm:** The 6-axis manipulator made of aluminum and articulated joints.
+*   **Control Box:** The "brain" of the system, housing the computer and power supplies.
+*   **Teach Pendant:** The 12-inch touchscreen interface used to program and move the robot.
+
+### Joint Nomenclature
+The robot has 6 rotating joints. Knowing their names is essential for programming and safety:
+
+![UR10e Joints](https://www.researchgate.net/profile/Xiaoyi-Hu-2/publication/351456456/figure/fig1/AS:1021745454542848@1620611454545/Joint-link-coordinate-system-distribution-of-UR10e-robot.png)
+
+1.  **Base:** The foundation of the robot.
+2.  **Shoulder:** The first large vertical joint.
+3.  **Elbow:** The second large vertical joint.
+4.  **Wrist 1:** Handles vertical orientation of the tool.
+5.  **Wrist 2:** Handles horizontal orientation of the tool.
+6.  **Wrist 3:** The rotating flange where tools (End Effectors) are attached.
+
+### The Teach Pendant
+The primary interface for manual control and programming:
+
+![UR Teach Pendant](https://www.universal-robots.com/media/1800/e-series-teach-pendant.jpg)
+
+### The Tool Flange (End Effector)
+The end of the robot (Wrist 3) is where you mount your tools (grippers, cameras, etc.).
+*   **Built-in I/O:** The tool flange has its own electrical connector (M8 8-pin) for digital and analog signals.
+*   **Power:** It provides a 12V/24V power supply (up to 2A) so you don't need messy cables running down the arm.
+
+---
+
 ## 📂 Project Roadmap
 
 This repository is organized into modular projects. Start with the **Python Template** if you are a beginner.
