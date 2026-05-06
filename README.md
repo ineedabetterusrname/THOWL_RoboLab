@@ -39,7 +39,7 @@ The UR10e is a **Collaborative Robot (Cobot)** designed to work alongside humans
 ### Hardware Components
 The complete robot system consists of three primary components:
 
-![UR10e System Components](https://manuals.plus/wp-content/uploads/2021/02/UR10e-Robot-System-Components.png)
+![UR10e System Components](./images/ur10e_components.png)
 
 *   **Robot Arm:** The 6-axis manipulator made of aluminum and articulated joints.
 *   **Control Box:** The "brain" of the system, housing the computer and power supplies.
@@ -48,7 +48,7 @@ The complete robot system consists of three primary components:
 ### Joint Nomenclature
 The robot has 6 rotating joints. Knowing their names is essential for programming and safety:
 
-![UR10e Joints](https://www.researchgate.net/profile/Xiaoyi-Hu-2/publication/351456456/figure/fig1/AS:1021745454542848@1620611454545/Joint-link-coordinate-system-distribution-of-UR10e-robot.png)
+![UR10e Joints](./images/ur10e_joints.png)
 
 1.  **Base:** The foundation of the robot.
 2.  **Shoulder:** The first large vertical joint.
@@ -60,7 +60,7 @@ The robot has 6 rotating joints. Knowing their names is essential for programmin
 ### The Teach Pendant
 The primary interface for manual control and programming:
 
-![UR Teach Pendant](https://www.universal-robots.com/media/1800/e-series-teach-pendant.jpg)
+![UR Teach Pendant](./images/ur10e_pendant.jpg)
 
 ### The Tool Flange (End Effector)
 The end of the robot (Wrist 3) is where you mount your tools (grippers, cameras, etc.).
