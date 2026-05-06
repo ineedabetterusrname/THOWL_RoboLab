@@ -60,7 +60,7 @@ The robot has 6 rotating joints. Knowing their names is essential for programmin
 ### The Teach Pendant
 The primary interface for manual control and programming:
 
-![UR Teach Pendant](./images/ur10e_pendant.jpg)
+![UR Teach Pendant](./images/ur10e_pendant.png)
 
 ### The Tool Flange (End Effector)
 The end of the robot (Wrist 3) is where you mount your tools (grippers, cameras, etc.).
