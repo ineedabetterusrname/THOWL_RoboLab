@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TH OWL Robo Lab — Home</title>
+  <meta name="description" content="TH OWL Architecture & Robotics — beginner's kit for the UR10e cobot, computer vision, and AI projects.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="TH OWL Robo Lab">
+      <img class="brand-logo" src="media/th-owl.png" alt="TH OWL" />
+      <span class="brand-text">
+        <strong>TH OWL Robo Lab</strong>
+        <small>UR10e · Architecture &amp; Robotics</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="active" href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="hardware.html">Safety &amp; Hardware</a>
+    </nav>
+    <div class="topbar-utility">
+      <span class="status-pill" title="Lab status">LAB ONLINE</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO ------------------------------------------------- -->
+    <section class="hero hero-solo">
+      <div class="hero-copy">
+        <p class="eyebrow">Beginner's Kit · v1</p>
+        <h1>Get the cobot moving — safely, today.</h1>
+        <p class="lead">
+          A centralised hub for students and researchers working with the
+          UR10e, computer vision, and AI at TH OWL. Workshop or semester
+          project — start here, and you'll be controlling the robot before
+          the end of the session.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="projects.html">Browse projects</a>
+          <a class="btn" href="hardware.html">Safety &amp; hardware</a>
+          <a class="btn" href="https://github.com/ineedabetterusrname/THOWL_RoboLab" target="_blank" rel="noopener">Open on GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAFETY BANNER --------------------------------------- -->
+    <div class="banner mt-3">
+      <span>
+        <strong>Safety first.</strong> The UR10e is collaborative — but still a 1.3 m, 10 kg arm.
+        Read the safety page before your first run.
+      </span>
+      <a class="badge" href="hardware.html#safety">Go to safety</a>
+    </div>
+
+    <!-- ABOUT THE UR10e ------------------------------------- -->
+    <section class="section" id="about">
+      <div class="section-head">
+        <p class="eyebrow">The Robot</p>
+        <h2><span class="index">01 //</span> About the UR10e</h2>
+        <p class="lede">
+          The UR10e is a 6-axis collaborative robot (cobot) designed to work alongside humans.
+          10 kg payload, 1300 mm reach, programmable via the Teach Pendant (PolyScope) or remotely
+          over RTDE from Python.
+        </p>
+      </div>
+
+      <div class="figure-row">
+        <figure class="figure">
+          <div class="frame"><img src="images/ur10e_components.png" alt="UR10e components: arm, control box, teach pendant"></div>
+          <figcaption>System components</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="frame"><img src="images/ur10e_joints.png" alt="UR10e six joints diagram"></div>
+          <figcaption>Joint nomenclature</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="frame"><img src="images/ur10e_pendant.png" alt="UR Teach Pendant"></div>
+          <figcaption>Teach Pendant</figcaption>
+        </figure>
+      </div>
+
+      <div class="grid cols-3 mt-3">
+        <article class="card">
+          <span class="tag tag-navy">Hardware</span>
+          <h3>Robot Arm</h3>
+          <p>Six rotary joints — base, shoulder, elbow, wrist 1, wrist 2, wrist 3. Tools mount to the flange on wrist 3.</p>
+        </article>
+        <article class="card">
+          <span class="tag tag-navy">Hardware</span>
+          <h3>Control Box</h3>
+          <p>The brain: safety controller, IO board, and the Ethernet interface you'll target from Python.</p>
+        </article>
+        <article class="card">
+          <span class="tag tag-navy">Hardware</span>
+          <h3>Teach Pendant</h3>
+          <p>12-inch touchscreen for jogging, scripting, and switching to Remote Control. Hosts the red E-Stop.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- QUICK START ----------------------------------------- -->
+    <section class="section" id="quickstart">
+      <div class="section-head">
+        <p class="eyebrow">From zero to a verified move</p>
+        <h2><span class="index">02 //</span> Quick start</h2>
+        <p class="lede">Five steps. Do them in order — most failures are skipped steps.</p>
+      </div>
+
+      <ol class="steps">
+        <li><strong>Join the network.</strong> Connect your laptop to <code>robot-wifi</code>. Get the UR10e's IP from the Teach Pendant (☰ → About).</li>
+        <li><strong>Switch the pendant to Remote Control.</strong> Top-right menu → <em>Remote Control</em>. Local jogging is now disabled.</li>
+        <li><strong>Clone the repo and install ur_rtde.</strong>
+          <pre data-lang="bash"><code>git clone https://github.com/ineedabetterusrname/THOWL_RoboLab.git
+cd THOWL_RoboLab
+pip install ur_rtde opencv-python numpy</code></pre>
+        </li>
+        <li><strong>Edit the IP.</strong> Open <code>UR10e_Documentation/Python_Template/ur10e_basic_template.py</code> and set <code>ROBOT_IP</code>.</li>
+        <li><strong>Run at 10 % speed.</strong> Drop the speed slider on the pendant. Run the script. Watch the arm — hand on E-Stop.</li>
+      </ol>
+
+      <div class="callout warn mt-3">
+        <div class="ico">!</div>
+        <div>
+          <strong>If it doesn't move,</strong>
+          <span>check (1) you're on robot-wifi, (2) the pendant is in Remote Control mode, and (3) the speed slider isn't at 0 %. These are 90 % of "robot not responding" reports.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENVIRONMENT ----------------------------------------- -->
+    <section class="section" id="environment">
+      <div class="section-head">
+        <p class="eyebrow">What you need</p>
+        <h2><span class="index">03 //</span> Environment</h2>
+        <p class="lede">Python 3.10+ recommended. Most projects pin their own requirements.txt.</p>
+      </div>
+
+      <table class="spec-table">
+        <thead>
+          <tr><th>Tool</th><th>Used for</th><th>Install</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Python 3.10+</td>
+            <td>All control scripts</td>
+            <td><code>python.org/downloads</code></td>
+          </tr>
+          <tr>
+            <td>ur_rtde</td>
+            <td>Talking to the UR10e over RTDE</td>
+            <td><code>pip install ur_rtde</code></td>
+          </tr>
+          <tr>
+            <td>OpenCV</td>
+            <td>Camera I/O, calibration, AprilTag</td>
+            <td><code>pip install opencv-python</code></td>
+          </tr>
+          <tr>
+            <td>Mediapipe</td>
+            <td>Hand tracking for the Interactive Robot project</td>
+            <td><code>pip install mediapipe</code></td>
+          </tr>
+          <tr>
+            <td>PyBullet</td>
+            <td>Physics simulation before touching the real robot</td>
+            <td><code>pip install pybullet</code></td>
+          </tr>
+          <tr>
+            <td>Rhino 7+ &amp; Grasshopper</td>
+            <td>Lab cell model, toolpath planning</td>
+            <td>Licence from TH OWL IT</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ROADMAP --------------------------------------------- -->
+    <section class="section" id="roadmap">
+      <div class="section-head">
+        <p class="eyebrow">Where to go next</p>
+        <h2><span class="index">04 //</span> Project roadmap</h2>
+        <p class="lede">Each is a self-contained folder with its own README. Start with the Python Template; jump to whichever project matches your semester project.</p>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="card">
+          <span class="tag tag-navy">Starter</span>
+          <h3>Python Template</h3>
+          <p>Connect to the robot, run one move, confirm everything. Use this to verify your setup before tackling a real project.</p>
+          <div class="card-foot">
+            <span class="mono muted">UR10e_Documentation/Python_Template/</span>
+            <a href="projects.html#templates">Templates</a>
+          </div>
+        </article>
+        <article class="card">
+          <span class="tag tag-amber">Vision · Real-time</span>
+          <h3>Interactive Robot</h3>
+          <p>Gesture teleoperation with Mediapipe + PyBullet. Switch between simulation and the real robot.</p>
+          <div class="card-foot">
+            <span class="mono muted">Projects/Interactive_robot/</span>
+            <a href="projects.html#interactive-robot">Open project</a>
+          </div>
+        </article>
+        <article class="card">
+          <span class="tag tag-navy">Computer Vision</span>
+          <h3>Tapo Vision Kit</h3>
+          <p>OpenCV + AprilTag pipeline for the lab's Tapo C110 cameras. World-coordinate calibration for pick targets.</p>
+          <div class="card-foot">
+            <span class="mono muted">Projects/Tapo_camera/</span>
+            <a href="projects.html#tapo-vision">Open project</a>
+          </div>
+        </article>
+        <article class="card">
+          <span class="tag tag-amber">LLM · Embodied</span>
+          <h3>Pi Zero + AI Camera</h3>
+          <p>"Cloud-brain, edge-body" Gemini-driven pick system on the IMX500 + Raspberry Pi Zero 2 W.</p>
+          <div class="card-foot">
+            <span class="mono muted">Projects/Raspberrypi+AI_camera/</span>
+            <a href="projects.html#ai-camera">Open project</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTRIBUTE ------------------------------------------ -->
+    <section class="section" id="contribute">
+      <div class="section-head">
+        <p class="eyebrow">For students</p>
+        <h2><span class="index">05 //</span> Contribute your project</h2>
+        <p class="lede">If you worked on something in the lab — document it here so the next cohort can build on it.</p>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="card">
+          <h3>1. Modular folder</h3>
+          <p>Create a new folder under <code>Projects/</code> named after your task. Keep code, models, and notes together.</p>
+        </article>
+        <article class="card">
+          <h3>2. README required</h3>
+          <p>Every project ships a <code>README.md</code> explaining how to install dependencies, configure the IP, and run it from cold.</p>
+        </article>
+        <article class="card">
+          <h3>3. No secrets</h3>
+          <p>Never commit passwords or real IPs to GitHub. Use placeholders like <code>YOUR_IP</code> and a local <code>.env</code>.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="credits">TH OWL · Architecture &amp; Robotics</span>
+        <address class="address">
+          Raum 4.303, Building 4, TH OWL<br>
+          Bielefelder Str. 25, 32756 Detmold
+        </address>
+      </div>
+      <div class="footer-right">
+        Maintained by the Robo Lab team.<br>
+        PRs welcome on <a href="https://github.com/ineedabetterusrname/THOWL_RoboLab" target="_blank" rel="noopener">GitHub</a>.
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

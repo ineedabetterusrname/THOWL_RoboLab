@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TH OWL Robo Lab — Projects</title>
+  <meta name="description" content="Templates and projects for the UR10e cobot at TH OWL Robo Lab.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="projects">
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="TH OWL Robo Lab">
+      <img class="brand-logo" src="media/th-owl.png" alt="TH OWL" />
+      <span class="brand-text">
+        <strong>TH OWL Robo Lab</strong>
+        <small>UR10e · Architecture &amp; Robotics</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a class="active" href="projects.html">Projects</a>
+      <a href="hardware.html">Safety &amp; Hardware</a>
+    </nav>
+    <div class="topbar-utility">
+      <span class="status-pill">LAB ONLINE</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO ------------------------------------------------- -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Templates · Projects</p>
+        <h1>Build something with the cobot.</h1>
+        <p class="lead">
+          Two starter templates and five worked projects. Each lives in its
+          own folder with the code, model files, and a README you can run
+          from cold. Start with a template, then jump to whichever project
+          matches your semester work.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#templates">Templates</a>
+          <a class="btn" href="#projects">Projects</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Project index">
+        <header>
+          <span>Index</span>
+          <span class="led">7 ITEMS</span>
+        </header>
+        <dl>
+          <dt>Templates</dt> <dd>Python · Rhino/GH</dd>
+          <dt>01</dt>        <dd>Interactive Robot</dd>
+          <dt>02</dt>        <dd>Tapo Vision Kit</dd>
+          <dt>03</dt>        <dd>Pi + AI Camera</dd>
+          <dt>04</dt>        <dd>Hanger</dd>
+          <dt>05</dt>        <dd>Robo Lab 3D Model</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- TEMPLATES ------------------------------------------- -->
+    <section class="section" id="templates">
+      <div class="section-head">
+        <p class="eyebrow">Start here</p>
+        <h2><span class="index">A //</span> Templates</h2>
+        <p class="lede">
+          Minimal, working examples. Clone the repo, change the IP, and run.
+          If the template runs, your setup is good and any failure in a real
+          project is the project, not the environment.
+        </p>
+      </div>
+
+      <div class="grid cols-2" id="templates-grid">
+        <!-- rendered by app.js -->
+      </div>
+
+      <div class="callout note mt-3">
+        <div class="ico">i</div>
+        <div>
+          <strong>Verify before you build.</strong>
+          <span>Always confirm the Python template runs end-to-end before adding camera capture, AI inference, or a custom toolpath. It rules out 90 % of "why isn't this working" before you write a single new line.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -------------------------------------------- -->
+    <section class="section" id="projects">
+      <div class="section-head">
+        <p class="eyebrow">Worked examples</p>
+        <h2><span class="index">B //</span> Projects</h2>
+        <p class="lede">
+          Each project below is in <code>Projects/</code>. Click through to
+          open the folder and read its own README for setup and run
+          instructions.
+        </p>
+      </div>
+
+      <div class="grid" id="projects-list">
+        <!-- rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- CONTRIBUTE ------------------------------------------ -->
+    <section class="section" id="contribute">
+      <div class="section-head">
+        <p class="eyebrow">Add yours</p>
+        <h2><span class="index">C //</span> Contribute a project</h2>
+        <p class="lede">
+          If you worked on something in the lab — add it here. Future students
+          will thank you.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li><strong>Create a folder under <code>Projects/</code></strong> named after your task (no spaces — use underscores).</li>
+        <li><strong>Add a README.md</strong> with: what it does · install · how to run · controls · safety notes specific to your setup.</li>
+        <li><strong>Strip secrets.</strong> No passwords, no real IPs, no auth tokens. Use placeholders.</li>
+        <li><strong>Open a PR</strong> against the GitHub repo. Add an entry to <code>data.js</code> so it appears on this page.</li>
+      </ol>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="credits">TH OWL · Architecture &amp; Robotics</span>
+        <address class="address">
+          Raum 4.303, Building 4, TH OWL<br>
+          Bielefelder Str. 25, 32756 Detmold
+        </address>
+      </div>
+      <div class="footer-right">
+        Maintained by the Robo Lab team.<br>
+        PRs welcome on <a href="https://github.com/ineedabetterusrname/THOWL_RoboLab" target="_blank" rel="noopener">GitHub</a>.
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

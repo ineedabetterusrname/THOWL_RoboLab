@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TH OWL Robo Lab — Safety &amp; Hardware</title>
+  <meta name="description" content="Safety rules and hardware reference for the TH OWL Robo Lab.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="hardware">
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="TH OWL Robo Lab">
+      <img class="brand-logo" src="media/th-owl.png" alt="TH OWL" />
+      <span class="brand-text">
+        <strong>TH OWL Robo Lab</strong>
+        <small>UR10e · Architecture &amp; Robotics</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a class="active" href="hardware.html">Safety &amp; Hardware</a>
+    </nav>
+    <div class="topbar-utility">
+      <span class="status-pill">LAB ONLINE</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO ------------------------------------------------- -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Read before your first run</p>
+        <h1>Safety first. Hardware second.</h1>
+        <p class="lead">
+          The UR10e is collaborative, but it is still a 1.3 m, 10 kg arm
+          driven by motors. The rules below prevent the failures we have
+          actually seen. The hardware library below is what you have on
+          hand to build with.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-accent" href="#safety">Safety rules</a>
+          <a class="btn" href="#hardware">Hardware library</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Quick reference">
+        <header>
+          <span>Quick reference</span>
+          <span class="led">E-STOP ON PENDANT</span>
+        </header>
+        <dl>
+          <dt>E-Stop</dt>     <dd>Red button · Teach Pendant</dd>
+          <dt>Mode</dt>       <dd>Remote Control</dd>
+          <dt>Speed</dt>      <dd>Start ≤ 10 %</dd>
+          <dt>Reach</dt>      <dd>~1.3 m</dd>
+          <dt>Payload</dt>    <dd>10 kg</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- SAFETY ---------------------------------------------- -->
+    <section class="section" id="safety">
+      <div class="section-head">
+        <p class="eyebrow">The golden rules</p>
+        <h2><span class="index">01 //</span> Safety</h2>
+        <p class="lede">
+          Six rules. They are short. Follow all of them, every session.
+          If you can't remember why a rule exists, ask before you run.
+        </p>
+      </div>
+
+      <div class="grid cols-2" id="safety-list">
+        <!-- rendered by app.js -->
+      </div>
+
+      <div class="callout danger mt-3">
+        <div class="ico">!</div>
+        <div>
+          <strong>If anything looks wrong — stop.</strong>
+          <span>Press the E-Stop. Don't reset until you understand what triggered it. "It worked last time" is not a diagnosis.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOL FLANGE ----------------------------------------- -->
+    <section class="section" id="tool-flange">
+      <div class="section-head">
+        <p class="eyebrow">Where your tools live</p>
+        <h2><span class="index">02 //</span> The Tool Flange</h2>
+        <p class="lede">
+          End-effectors mount on wrist 3. The flange has its own electrical
+          connector and provides power, so you don't need cables running
+          the length of the arm.
+        </p>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="kv">
+          <div class="k">Connector</div>
+          <div class="v">M8 · 8-pin</div>
+        </div>
+        <div class="kv">
+          <div class="k">Tool Power</div>
+          <div class="v">12 V / 24 V · up to <code>2 A</code></div>
+        </div>
+        <div class="kv">
+          <div class="k">Digital I/O</div>
+          <div class="v">2 in / 2 out</div>
+        </div>
+        <div class="kv">
+          <div class="k">Analog In</div>
+          <div class="v">2 channels</div>
+        </div>
+        <div class="kv">
+          <div class="k">Comms</div>
+          <div class="v">RS-485 available</div>
+        </div>
+        <div class="kv">
+          <div class="k">Mount Pattern</div>
+          <div class="v">ISO 9409-1-50-4-M6</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARDWARE LIBRARY ------------------------------------ -->
+    <section class="section" id="hardware">
+      <div class="section-head">
+        <p class="eyebrow">What's in the lab</p>
+        <h2><span class="index">03 //</span> Hardware library</h2>
+        <p class="lede">
+          Filter by category or search by name, spec, or use. Add new
+          hardware in <code>data.js</code> — it appears here automatically.
+        </p>
+      </div>
+
+      <div class="toolbar">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.3-4.3m2.3-5.2a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+          <input id="hw-search" type="search" placeholder="Search hardware, specs, uses">
+        </label>
+        <div class="chip-row" id="hw-filters" aria-label="Hardware categories">
+          <!-- rendered by app.js -->
+        </div>
+      </div>
+
+      <div class="grid cols-3" id="hardware-grid">
+        <!-- rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- LAB NETWORK ----------------------------------------- -->
+    <section class="section" id="network">
+      <div class="section-head">
+        <p class="eyebrow">Connectivity</p>
+        <h2><span class="index">04 //</span> Lab network</h2>
+        <p class="lede">All robot control assumes you are on the lab Wi-Fi. Outside that network, nothing reaches the controller.</p>
+      </div>
+
+      <table class="spec-table">
+        <thead>
+          <tr><th>Setting</th><th>Value</th><th>Where to find it</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wi-Fi SSID</td>
+            <td><code>robot-wifi</code></td>
+            <td>Label on the physical router in the lab</td>
+          </tr>
+          <tr>
+            <td>Wi-Fi password</td>
+            <td>—</td>
+            <td>Label on the router · ask supervisor</td>
+          </tr>
+          <tr>
+            <td>UR10e IP</td>
+            <td><code>192.168.x.x</code></td>
+            <td>Teach Pendant → ☰ Menu → About</td>
+          </tr>
+          <tr>
+            <td>Mode</td>
+            <td>Remote Control</td>
+            <td>Teach Pendant → top-right menu</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout note mt-3">
+        <div class="ico">i</div>
+        <div>
+          <strong>Don't commit secrets.</strong>
+          <span>Wi-Fi password, robot IP, Tapo credentials, API keys — none of these belong in the GitHub repo. Use placeholders (<code>YOUR_IP</code>) and a local <code>.env</code> file.</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="credits">TH OWL · Architecture &amp; Robotics</span>
+        <address class="address">
+          Raum 4.303, Building 4, TH OWL<br>
+          Bielefelder Str. 25, 32756 Detmold
+        </address>
+      </div>
+      <div class="footer-right">
+        Maintained by the Robo Lab team.<br>
+        PRs welcome on <a href="https://github.com/ineedabetterusrname/THOWL_RoboLab" target="_blank" rel="noopener">GitHub</a>.
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
