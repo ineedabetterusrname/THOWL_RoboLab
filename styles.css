@@ -971,3 +971,117 @@ p code, li code, td code {
 .mt-0 { margin-top: 0; } .mt-1 { margin-top: 8px; } .mt-2 { margin-top: 16px; } .mt-3 { margin-top: 24px; }
 .mb-0 { margin-bottom: 0; } .mb-2 { margin-bottom: 16px; }
 .gap-2 { gap: 16px; }
+
+/* ============================================================
+   MOBILE / NARROW-VIEWPORT TWEAKS
+   ============================================================ */
+
+/* Tablet / large phones */
+@media (max-width: 820px) {
+  main { padding: 22px 0 60px; }
+
+  /* Topbar — let nav wrap to its own row; hide status pill */
+  .topbar {
+    flex-wrap: wrap;
+    row-gap: 10px;
+    gap: 10px;
+    padding: 10px 16px;
+    min-height: unset;
+  }
+  .topbar-utility { display: none; }
+  .brand-text small { display: none; }
+  .brand-logo { height: 34px; }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 4px;
+  }
+  .nav-links a {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+
+  /* Hero */
+  .hero { padding: 28px 20px; border-radius: 14px; }
+  .hero-copy h1 { font-size: 1.9rem; line-height: 1.12; }
+  .hero-copy p.lead { font-size: 0.98rem; }
+  .hero-cta { gap: 8px; }
+  .hero-cta .btn { font-size: 13.5px; padding: 9px 14px; }
+
+  /* Section spacing + headings */
+  .section { margin-top: 44px; }
+  .section-head h2 { flex-wrap: wrap; row-gap: 4px; }
+  .section-head h2 .index { font-size: 12.5px; }
+
+  /* Banner — stack inside */
+  .banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  /* Tables — let them scroll horizontally instead of overflowing the page */
+  .spec-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  .spec-table thead, .spec-table tbody, .spec-table tr { display: table; width: 100%; table-layout: auto; }
+  .spec-table thead th, .spec-table td { padding: 10px 12px; }
+
+  /* Cards / steps / callouts */
+  .card { padding: 16px; }
+  .card h3 { font-size: 1.08rem; }
+  .steps > li { padding: 12px 14px 12px 48px; font-size: 14px; }
+  .callout {
+    grid-template-columns: 30px 1fr;
+    padding: 12px 14px;
+    font-size: 13.5px;
+  }
+
+  /* Project feature — large ID can overflow; clamp + wrap */
+  .feature { padding: 20px; gap: 18px; }
+  .feature .feature-visual { padding: 16px; min-height: 180px; }
+  .feature .feature-visual .big-id {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+    word-break: break-word;
+    line-height: 1.05;
+  }
+  .feature .feature-copy h3 { font-size: 1.3rem; }
+
+  /* Figures — slightly less tall on small screens */
+  .figure .frame { aspect-ratio: 4 / 5; padding: 14px; }
+
+  /* Toolbar (hardware filters) */
+  .toolbar { padding: 12px; gap: 10px; }
+  .chip-row { width: 100%; }
+}
+
+/* Small phones (iPhone SE, regular iPhone in portrait) */
+@media (max-width: 480px) {
+  .hero { padding: 22px 16px; }
+  .hero-copy h1 { font-size: 1.65rem; }
+  .hero-copy p.lead { font-size: 0.95rem; }
+
+  h2 { font-size: 1.4rem; }
+
+  .brand-text strong { font-size: 13.5px; }
+  .nav-links a { padding: 6px 10px; font-size: 12.5px; }
+
+  .feature { padding: 16px; }
+  .feature .feature-visual { padding: 14px; min-height: 160px; }
+  .feature .feature-visual .big-id { font-size: 1.5rem; }
+  .feature .feature-visual header,
+  .feature .feature-visual .ticks { font-size: 10px; }
+
+  .figure .frame { aspect-ratio: 1 / 1; padding: 12px; }
+
+  pre { padding: 14px; font-size: 12.5px; }
+
+  .footer-right { text-align: left; }
+}
