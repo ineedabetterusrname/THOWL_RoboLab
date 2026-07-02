@@ -790,6 +790,12 @@ p code, li code, td code {
   padding: 1px 6px;
   border-radius: 4px;
 }
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
 
 /* ----------------------------- FILTERS / SEARCH ------------- */
 

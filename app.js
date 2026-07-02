@@ -33,10 +33,10 @@
           <span class="tag ${esc(t.tagClass || "")}">${esc(t.tag)}</span>
           <h3>${esc(t.title)}</h3>
           <p>${esc(t.summary)}</p>
-          <p class="meta">Stack · ${t.stack.map(esc).join(" / ")}</p>
+          <p class="meta">Stack · ${(t.stack || []).map(esc).join(" / ")}</p>
           <div class="card-foot">
             <span class="mono muted">${esc(t.path)}</span>
-            <a href="${esc(ghUrl(t.path))}" target="_blank" rel="noopener">Open on GitHub</a>
+            <a id="template-gh-${esc(t.id)}" href="${esc(ghUrl(t.path))}" target="_blank" rel="noopener">Open on GitHub</a>
           </div>
         </article>`
       )
@@ -64,13 +64,13 @@
             <span class="tag ${esc(p.tagClass || "")}">${esc(p.tag)}</span>
             <h3>${esc(p.subtitle)}</h3>
             <p>${esc(p.summary)}</p>
-            <p class="meta">Tools · ${p.tools.map(esc).join(" · ")}</p>
+            <p class="meta">Tools · ${(p.tools || []).map(esc).join(" · ")}</p>
             <ul class="bullets">
               ${(p.controls || []).map((c) => `<li>${esc(c)}</li>`).join("")}
             </ul>
             <div class="card-foot">
               <span class="mono muted">${esc(p.path)}</span>
-              <a href="${esc(ghUrl(p.path, p.file))}" target="_blank" rel="noopener">${p.file ? "Open " + esc(p.file) + " on GitHub" : "Open on GitHub"}</a>
+              <a id="project-gh-${esc(p.id)}" href="${esc(ghUrl(p.path, p.file))}" target="_blank" rel="noopener">${p.file ? "Open " + esc(p.file) + " on GitHub" : "Open on GitHub"}</a>
             </div>
           </div>
         </article>`
@@ -142,7 +142,7 @@
     host.innerHTML = cats
       .map(
         (c) =>
-          `<button class="chip ${c === getActive() ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`
+          `<button id="filter-cat-${esc(c.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase())}" class="chip ${c === getActive() ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`
       )
       .join("");
     host.querySelectorAll(".chip").forEach((btn) =>
