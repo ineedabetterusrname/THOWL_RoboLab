@@ -358,6 +358,95 @@ hr {
   max-width: 760px;
 }
 
+/* ----------------------------- SIM PREVIEW ------------------ */
+
+.sim-preview {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.sim-preview-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(600px 120px at 0% 0%, rgba(226, 0, 60, 0.06), transparent 70%),
+    var(--panel);
+}
+
+.sim-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+.sim-live .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(226, 0, 60, 0.5);
+  animation: simPulse 1.8s ease-out infinite;
+}
+@keyframes simPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(226, 0, 60, 0.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(226, 0, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(226, 0, 60, 0); }
+}
+
+.sim-preview-title { flex: 1 1 240px; min-width: 200px; }
+.sim-preview-title strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.sim-preview-title small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.sim-open { flex: 0 0 auto; }
+
+.sim-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 42vw, 460px);
+  background: #11141a;
+}
+.sim-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .sim-preview-head { gap: 10px; }
+  .sim-open { width: 100%; justify-content: center; }
+  .sim-frame { height: clamp(300px, 68vw, 420px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sim-live .dot { animation: none; }
+}
+
 /* ----------------------------- SECTION HEADINGS ------------- */
 
 .section {
