@@ -66,6 +66,7 @@ TAG_ID_START = 48    # First tag ID in the grid (bottom-left or top-left)
 
 class FreshFrameReader:
     def __init__(self, url):
+        self.url = url
         self.cap = cv2.VideoCapture(url)
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
         self.q = queue.Queue()
@@ -77,15 +78,27 @@ class FreshFrameReader:
     def _reader(self):
         while not self.stopped:
             ret, frame = self.cap.read()
-            if not ret: break
+            if not ret:
+                # Wi-Fi cameras drop eventually. Reconnect instead of dying -
+                # a dead reader left read() blocking forever on an empty queue.
+                self.cap.release()
+                if self.stopped: break
+                print("Stream dropped - reconnecting...")
+                time.sleep(2.0)
+                self.cap = cv2.VideoCapture(self.url)
+                continue
             if not self.q.empty():
                 try: self.q.get_nowait()
                 except queue.Empty: pass
             self.q.put(frame)
         self.cap.release()
 
-    def read(self):
-        return True, self.q.get()
+    def read(self, timeout=15.0):
+        """Newest frame, or (False, None) if the stream stays silent."""
+        try:
+            return True, self.q.get(timeout=timeout)
+        except queue.Empty:
+            return False, None
 
     def isOpened(self):
         return self.cap.isOpened()
@@ -333,7 +346,9 @@ class TapoAprilTagTracker:
 
         while True:
             ret, frame = reader.read()
-            if not ret: break
+            if not ret:
+                print("No frames for 15s - check the camera, credentials and Wi-Fi.")
+                break
 
             h, w = frame.shape[:2]
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
