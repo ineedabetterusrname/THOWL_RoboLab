@@ -1,0 +1,13 @@
+# python -m pip install -r requirements.txt
+#
+# Use opencv-python, NOT opencv-python-headless. Both unpack into the same cv2/
+# folder, so installing both leaves whichever landed last in charge -- and if
+# that is headless, view.py cannot open a window and the error message blames
+# GTK on a machine that has never seen GTK. Pick one.
+#
+# On a server with no display, headless is the right choice: everything here
+# works with it except view.py. Use serve.py instead and watch in a browser.
+
+opencv-python>=4.5
+numpy>=1.20
+python-dotenv>=1.0

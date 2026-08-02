@@ -1,0 +1,9 @@
+# Runtime artifacts — never commit these.
+__pycache__/
+*.py[cod]
+captures/
+
+# NOTE: .env is committed here deliberately, and it is EMPTY.
+# It is the blank template you fill in locally. If you ever fill it in in this
+# working copy, keep git from seeing the change:
+#   git update-index --skip-worktree Projects/Tapo_Camera_Access/.env
