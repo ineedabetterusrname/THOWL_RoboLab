@@ -276,6 +276,8 @@ class RTDEControlInterface:
     def set_control_mode(self, mode): self.robot.set_control_mode(mode)
 
 class RTDEReceiveInterface:
+    """Sim stub. getActualTCPPose() returns zeros - do not use it for
+    feedback in simulation; read the target state from SimRobot instead."""
     def __init__(self, ip): pass
     def getActualTCPPose(self): return [0,0,0,0,0,0]
 

@@ -3,14 +3,13 @@ import mediapipe as mp
 import numpy as np
 import rtde_control
 import rtde_receive
-import time
 import math
 
 # -----------------------
 # Robot connection setup
 # -----------------------
 # IMPORTANT: Replace with the actual IP address of your UR10e robot.
-robot_ip = "YOUR_ROBOT_IP" 
+robot_ip = "YOUR_ROBOT_IP"
 
 try:
     rtde_c = rtde_control.RTDEControlInterface(robot_ip)
@@ -24,12 +23,14 @@ except Exception as e:
 # SPEED SETTINGS
 # -----------------------
 MAX_LINEAR_SPEED_XY = 0.2      # m/s
-MAX_LINEAR_SPEED_Z  = 1.0      # m/s
+# Z is driven by MediaPipe's depth estimate, the noisiest signal in the whole
+# pipeline - keep it modest on the real robot. (The sim uses 0.5.)
+MAX_LINEAR_SPEED_Z  = 0.3      # m/s
 MAX_ANGULAR_SPEED   = 1.0      # rad/s (rotation)
 
 # Deadzone sizes
-NEUTRAL_RADIUS_TRANSL = 80     
-NEUTRAL_RADIUS_ROT    = 80     
+NEUTRAL_RADIUS_TRANSL = 80
+NEUTRAL_RADIUS_ROT    = 80
 
 # Z-axis (depth) deadzone
 Z_NEUTRAL = -0.03
@@ -68,114 +69,131 @@ def is_fist(hand_landmarks):
 
 print(f"REAL ROBOT READY at {robot_ip} — Right hand = translation, Left hand = rotation")
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        print("Camera error")
-        break
+# Whether the last command sent was a stop. speedStop() decelerates hard
+# (10 m/s^2 default) and ends speed mode - unlike speedL(zeros, a=0.1),
+# which used to ramp down over several seconds. We only send it once per
+# stop episode; the next speedL re-enters speed mode automatically.
+stopped = False
 
-    frame = cv2.flip(frame, 1)
-    h, w, _ = frame.shape
+try:
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Camera error")
+            break
 
-    mid_x = w // 2
-    cy = int(h // 2.5)
-    left_center_x = mid_x // 2
-    right_center_x = mid_x + mid_x // 2
+        frame = cv2.flip(frame, 1)
+        h, w, _ = frame.shape
 
-    # Mediapipe
-    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    results = hands.process(rgb)
+        mid_x = w // 2
+        cy = int(h // 2.5)
+        left_center_x = mid_x // 2
+        right_center_x = mid_x + mid_x // 2
 
-    # UI Overlay
-    cv2.line(frame, (mid_x, 0), (mid_x, h), (0, 255, 255), 4)
-    cv2.circle(frame, (left_center_x, cy), NEUTRAL_RADIUS_ROT, (255, 150, 0), 2)
-    cv2.circle(frame, (right_center_x, cy), NEUTRAL_RADIUS_TRANSL, (0, 255, 255), 2)
+        # Mediapipe
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = hands.process(rgb)
 
-    vx = vy = vz = 0.0
-    roll = pitch = yaw = 0.0
-    left_fist = right_fist = False
+        # UI Overlay
+        cv2.line(frame, (mid_x, 0), (mid_x, h), (0, 255, 255), 4)
+        cv2.circle(frame, (left_center_x, cy), NEUTRAL_RADIUS_ROT, (255, 150, 0), 2)
+        cv2.circle(frame, (right_center_x, cy), NEUTRAL_RADIUS_TRANSL, (0, 255, 255), 2)
 
-    if results.multi_hand_landmarks and results.multi_handedness:
-        for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
-            hand_label = results.multi_handedness[i].classification[0].label
+        vx = vy = vz = 0.0
+        roll = pitch = yaw = 0.0
+        left_fist = right_fist = False
 
-            if is_fist(hand_landmarks):
-                if hand_label == "Left": left_fist = True
-                else: right_fist = True
+        if results.multi_hand_landmarks and results.multi_handedness:
+            for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
+                hand_label = results.multi_handedness[i].classification[0].label
 
-            pts = [(int(lm.x * w), int(lm.y * h)) for lm in hand_landmarks.landmark]
-            tip = hand_landmarks.landmark[8]
-            px, py = int(tip.x * w), int(tip.y * h)
-            depth_offset = tip.z - Z_NEUTRAL
+                if is_fist(hand_landmarks):
+                    if hand_label == "Left": left_fist = True
+                    else: right_fist = True
 
-            if abs(depth_offset) < Z_DEADZONE:
-                z_color = (255, 0, 0)
-            else:
-                z_color = (0,255,0) if depth_offset < 0 else (0,0,255)
+                pts = [(int(lm.x * w), int(lm.y * h)) for lm in hand_landmarks.landmark]
+                tip = hand_landmarks.landmark[8]
+                px, py = int(tip.x * w), int(tip.y * h)
+                depth_offset = tip.z - Z_NEUTRAL
 
-            for (a,b) in HAND_CONNECTIONS:
-                x1,y1 = pts[a]
-                x2,y2 = pts[b]
-                cv2.line(frame, (x1,y1), (x2,y2), z_color, 6, cv2.LINE_AA)
+                if abs(depth_offset) < Z_DEADZONE:
+                    z_color = (255, 0, 0)
+                else:
+                    z_color = (0,255,0) if depth_offset < 0 else (0,0,255)
 
-            for x,y in pts:
-                cv2.circle(frame, (x,y), 4, (255,255,255), -1)
+                for (a,b) in HAND_CONNECTIONS:
+                    x1,y1 = pts[a]
+                    x2,y2 = pts[b]
+                    cv2.line(frame, (x1,y1), (x2,y2), z_color, 6, cv2.LINE_AA)
 
-            # Z Bar Visualization
-            normalized = np.clip((-depth_offset)/Z_DISPLAY_RANGE, -1, 1)
-            bar_h, bar_w = int(h * 0.35), 18
-            bar_x = 40 if hand_label == "Left" else w - 40 - bar_w
-            bar_y = cy - bar_h//2
+                for x,y in pts:
+                    cv2.circle(frame, (x,y), 4, (255,255,255), -1)
 
-            cv2.rectangle(frame, (bar_x-2,bar_y-2), (bar_x+bar_w+2,bar_y+bar_h+2),(50,50,50),-1)
-            fill_mid = bar_y + bar_h//2
-            fill_offset = int(normalized * (bar_h//2))
-            fill_y = fill_mid - fill_offset
+                # Z Bar Visualization
+                normalized = np.clip((-depth_offset)/Z_DISPLAY_RANGE, -1, 1)
+                bar_h, bar_w = int(h * 0.35), 18
+                bar_x = 40 if hand_label == "Left" else w - 40 - bar_w
+                bar_y = cy - bar_h//2
 
-            if normalized >= 0:
-                cv2.rectangle(frame,(bar_x,fill_y),(bar_x+bar_w,fill_mid),(0,255,0),-1)
-            else:
-                cv2.rectangle(frame,(bar_x,fill_mid),(bar_x+bar_w,fill_y),(0,0,255),-1)
+                cv2.rectangle(frame, (bar_x-2,bar_y-2), (bar_x+bar_w+2,bar_y+bar_h+2),(50,50,50),-1)
+                fill_mid = bar_y + bar_h//2
+                fill_offset = int(normalized * (bar_h//2))
+                fill_y = fill_mid - fill_offset
 
-            # Control Logic
-            if hand_label == "Right":  # Translation
-                cx = right_center_x
-                dx, dy = px - cx, py - cy
-                dist = math.hypot(dx, dy)
-                if dist > NEUTRAL_RADIUS_TRANSL:
-                    norm = min((dist - NEUTRAL_RADIUS_TRANSL) / (mid_x - NEUTRAL_RADIUS_TRANSL), 1.0)
-                    vx = (dx/dist) * norm * MAX_LINEAR_SPEED_XY
-                    vy = (dy/dist) * norm * MAX_LINEAR_SPEED_XY
-                if abs(depth_offset) > Z_DEADZONE:
-                    vz = -depth_offset * MAX_LINEAR_SPEED_Z
-                    vz = float(np.clip(vz, -MAX_LINEAR_SPEED_Z, MAX_LINEAR_SPEED_Z))
-            else:  # Rotation
-                cx = left_center_x
-                dx, dy = px - cx, py - cy
-                dist = math.hypot(dx, dy)
-                if dist > NEUTRAL_RADIUS_ROT:
-                    norm = min((dist - NEUTRAL_RADIUS_ROT) / (mid_x - NEUTRAL_RADIUS_ROT), 1.0)
-                    roll = (dx/dist) * norm * MAX_ANGULAR_SPEED
-                    pitch = -(dy/dist) * norm * MAX_ANGULAR_SPEED
-                if abs(depth_offset) > Z_DEADZONE:
-                    yaw = -depth_offset * MAX_ANGULAR_SPEED
-                    yaw = float(np.clip(yaw, -MAX_ANGULAR_SPEED, MAX_ANGULAR_SPEED))
+                if normalized >= 0:
+                    cv2.rectangle(frame,(bar_x,fill_y),(bar_x+bar_w,fill_mid),(0,255,0),-1)
+                else:
+                    cv2.rectangle(frame,(bar_x,fill_mid),(bar_x+bar_w,fill_y),(0,0,255),-1)
 
-    if left_fist or right_fist:
-        vx = vy = vz = roll = pitch = yaw = 0
-        cv2.putText(frame, "FIST - STOP", (30,60), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,0,255), 3)
+                # Control Logic - axis mapping matches main_sim.py exactly, so
+                # motions validated in the simulator behave the same here.
+                if hand_label == "Right":  # Translation
+                    dx, dy = px - right_center_x, py - cy
+                    dist = math.hypot(dx, dy)
+                    if dist > NEUTRAL_RADIUS_TRANSL:
+                        norm = min((dist - NEUTRAL_RADIUS_TRANSL) / (mid_x - NEUTRAL_RADIUS_TRANSL), 1.0)
+                        vx = (dx/dist) * norm * MAX_LINEAR_SPEED_XY
+                        vy = -(dy/dist) * norm * MAX_LINEAR_SPEED_XY   # screen up = +Y, as in sim
+                    if abs(depth_offset) > Z_DEADZONE:
+                        z_sens = 2.5 if depth_offset > 0 else 1.0      # same asymmetry as sim
+                        vz = -depth_offset * z_sens * MAX_LINEAR_SPEED_Z
+                        vz = float(np.clip(vz, -MAX_LINEAR_SPEED_Z, MAX_LINEAR_SPEED_Z))
+                else:  # Rotation
+                    dx, dy = px - left_center_x, py - cy
+                    dist = math.hypot(dx, dy)
+                    if dist > NEUTRAL_RADIUS_ROT:
+                        norm = min((dist - NEUTRAL_RADIUS_ROT) / (mid_x - NEUTRAL_RADIUS_ROT), 1.0)
+                        roll = (dx/dist) * norm * MAX_ANGULAR_SPEED
+                        pitch = -(dy/dist) * norm * MAX_ANGULAR_SPEED
+                    if abs(depth_offset) > Z_DEADZONE:
+                        yaw = -depth_offset * MAX_ANGULAR_SPEED
+                        yaw = float(np.clip(yaw, -MAX_ANGULAR_SPEED, MAX_ANGULAR_SPEED))
 
+        if left_fist or right_fist:
+            vx = vy = vz = roll = pitch = yaw = 0
+            cv2.putText(frame, "FIST - STOP", (30,60), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,0,255), 3)
+
+        try:
+            if results.multi_hand_landmarks and not (left_fist or right_fist):
+                rtde_c.speedL([vx,vy,vz, roll,pitch,yaw], 0.5, 0.1)
+                stopped = False
+            elif not stopped:
+                rtde_c.speedStop()   # hard stop: fist shown or hands lost
+                stopped = True
+        except Exception as e:
+            print("RTDE ERROR:", e)
+
+        cv2.imshow("Interactive Robot (REAL)", frame)
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+
+finally:
+    # Runs on ESC, camera loss, Ctrl-C or a crash: never leave the arm
+    # coasting on the last commanded velocity.
     try:
-        rtde_c.speedL([vx,vy,vz, roll,pitch,yaw], 0.1, 0.1)
-    except Exception as e:
-        print("RTDE ERROR:", e)
-
-    cv2.imshow("Interactive Robot (REAL)", frame)
-    if cv2.waitKey(1) & 0xFF == 27:
-        break
-
-# Cleanup
-rtde_c.speedL([0,0,0,0,0,0],0.2,0.2)
-cap.release()
-cv2.destroyAllWindows()
-rtde_c.stopScript()
+        rtde_c.speedStop()
+    except Exception:
+        pass
+    cap.release()
+    cv2.destroyAllWindows()
+    rtde_c.stopScript()

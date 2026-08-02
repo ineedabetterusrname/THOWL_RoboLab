@@ -8,7 +8,7 @@ It supports both a **Physics Simulation (PyBullet)** and the **Real UR10e Robot*
 
 ## 🛠️ 1. Installation
 
-1.  **Install Python 3.8+**
+1.  **Install Python 3.10 – 3.12** (mediapipe wheels lag newer Python releases)
 2.  **Install Dependencies**:
     Open a terminal in this folder and run:
     ```powershell
@@ -54,7 +54,9 @@ It supports both a **Physics Simulation (PyBullet)** and the **Real UR10e Robot*
 
 *   `scripts/main_sim.py`: Entry point for simulation mode.
 *   `scripts/main_real.py`: Entry point for real robot mode.
+*   `scripts/main_vr.py`: Experimental VR mode (PyBullet + SteamVR/OpenVR). Right controller drives the arm, trigger closes the gripper, button A resets.
 *   `scripts/ur10e_control.py`: The core simulation and control interface.
+*   `scripts/utils/merge_gripper.py`: Utility that stitches the UR10e and 2FG7 gripper URDFs into one model (writes `ur10e_with_gripper_new.urdf`).
 *   `models/`: Contains URDF files and 3D meshes for the UR10e and gripper.
 *   `requirements.txt`: Python libraries needed.
 

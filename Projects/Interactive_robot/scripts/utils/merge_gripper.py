@@ -34,8 +34,10 @@ def filter_urdf_lines(content, is_gripper=False):
 
         if is_gripper:
             if "<robot" in line or "<?xml" in line or "</robot>" in line: continue
-            if 'name="base_link"' in line: line = line.replace('name="base_link"', 'gripper_base')
-            if 'parent link="base_link"' in line: line = line.replace('parent link="base_link"', 'gripper_base')
+            # Keep the attribute syntax intact - replacing the whole
+            # name="..." pair with a bare token produced invalid XML.
+            if 'name="base_link"' in line: line = line.replace('name="base_link"', 'name="gripper_base"')
+            if 'parent link="base_link"' in line: line = line.replace('parent link="base_link"', 'parent link="gripper_base"')
             if "package://onrobot_2fg7_description/meshes/" in line:
                 line = line.replace("package://onrobot_2fg7_description/meshes/", "gripper_meshes/")
         else:

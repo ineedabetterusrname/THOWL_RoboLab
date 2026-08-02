@@ -1,3 +1,4 @@
+# mediapipe wheels lag new Python releases - use Python 3.10-3.12.
 opencv-python
 mediapipe
 ur_rtde
