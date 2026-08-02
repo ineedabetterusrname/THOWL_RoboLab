@@ -210,43 +210,8 @@ pip install ur_rtde opencv-python numpy</code></pre>
         <p class="lede">Each is a self-contained folder with its own README. Start with the Python Template; jump to whichever project matches your semester project.</p>
       </div>
 
-      <div class="grid cols-2">
-        <article class="card">
-          <span class="tag tag-navy">Starter</span>
-          <h3>Python Template</h3>
-          <p>Connect to the robot, run one move, confirm everything. Use this to verify your setup before tackling a real project.</p>
-          <div class="card-foot">
-            <span class="mono muted">UR10e_Documentation/Python_Template/</span>
-            <a href="projects.html#templates">Templates</a>
-          </div>
-        </article>
-        <article class="card">
-          <span class="tag tag-amber">Vision · Real-time</span>
-          <h3>Interactive Robot</h3>
-          <p>Gesture teleoperation with Mediapipe + PyBullet. Switch between simulation and the real robot.</p>
-          <div class="card-foot">
-            <span class="mono muted">Projects/Interactive_robot/</span>
-            <a href="projects.html#interactive-robot">Open project</a>
-          </div>
-        </article>
-        <article class="card">
-          <span class="tag tag-navy">Computer Vision</span>
-          <h3>Tapo Vision Kit</h3>
-          <p>OpenCV + AprilTag pipeline for the lab's Tapo C110 cameras. World-coordinate calibration for pick targets.</p>
-          <div class="card-foot">
-            <span class="mono muted">Projects/Tapo_camera/</span>
-            <a href="projects.html#tapo-vision">Open project</a>
-          </div>
-        </article>
-        <article class="card">
-          <span class="tag tag-amber">LLM · Embodied</span>
-          <h3>Pi Zero + AI Camera</h3>
-          <p>"Cloud-brain, edge-body" Gemini-driven pick system on the IMX500 + Raspberry Pi Zero 2 W.</p>
-          <div class="card-foot">
-            <span class="mono muted">Projects/Raspberrypi+AI_camera/</span>
-            <a href="projects.html#ai-camera">Open project</a>
-          </div>
-        </article>
+      <div class="grid cols-2" id="roadmap-grid">
+        <!-- rendered by app.js from data.js — one card per template/project -->
       </div>
     </section>
 
@@ -290,5 +255,7 @@ pip install ur_rtde opencv-python numpy</code></pre>
 
   </main>
 
+  <script src="data.js?v=7"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

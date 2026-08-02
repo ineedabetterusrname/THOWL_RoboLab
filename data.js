@@ -81,7 +81,7 @@ window.RoboLabData = {
       tag: "LLM · Embodied",
       tagClass: "tag-amber",
       summary:
-        "Self-correcting pick system. A Raspberry Pi Zero 2 W with the IMX500 captures keyframes; a workstation runs Gemini 1.5 Pro to reason over the scene and emit motion commands the UR10e executes via ur_rtde.",
+        "Self-correcting pick system. A Raspberry Pi Zero 2 W with the IMX500 captures keyframes; a workstation runs Gemini (2.5 Pro or current) to reason over the scene and emit motion commands the UR10e executes via ur_rtde.",
       tools: ["Raspberry Pi", "IMX500", "Gemini API", "FastAPI"],
       controls: [
         "Pi exposes /snap endpoint for high-res keyframes",
@@ -90,7 +90,7 @@ window.RoboLabData = {
       ],
       path: "Projects/Raspberrypi+AI_camera/",
       file: "UR10e+AI_Camera.md",
-      ticks: ["PI ZERO 2W", "IMX500", "GEMINI 1.5"],
+      ticks: ["PI ZERO 2W", "IMX500", "GEMINI"],
     },
     {
       id: "hanger",
@@ -106,7 +106,7 @@ window.RoboLabData = {
         "Open hanger_4.303.gh against the matching .3dm",
         "Adapt clamp positions, then export toolpaths",
       ],
-      path: "Projects/Hanger/Bo/",
+      path: "Projects/Hanger/",
       ticks: ["RHINO", "GH"],
     },
     {

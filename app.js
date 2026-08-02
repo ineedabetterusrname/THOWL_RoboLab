@@ -78,7 +78,7 @@
     host.innerHTML = data.projects
       .map(
         (p, i) => `
-        <article class="feature ${i % 2 === 1 ? "reverse" : ""}">
+        <article class="feature ${i % 2 === 1 ? "reverse" : ""}" id="${esc(p.id)}">
           <div class="feature-visual">
             <header>
               <span>PROJECT // ${esc(p.number)}</span>
@@ -104,6 +104,40 @@
                 <a id="project-gh-${esc(p.id)}" href="${esc(ghUrl(p.path, p.file))}" target="_blank" rel="noopener">${p.file ? "Open " + esc(p.file) + " on GitHub" : "Open on GitHub"}</a>
               </span>
             </div>
+          </div>
+        </article>`
+      )
+      .join("");
+  }
+
+  /* ----------------------- ROADMAP (home page) -------------- */
+  // The homepage roadmap used to be hand-written HTML and drifted out of
+  // sync whenever a project was added to data.js. Both pages now render
+  // from the same data.
+  function renderRoadmap(host) {
+    if (!host || !data.projects) return;
+    const brief = (s) => {
+      const i = String(s).indexOf(". ");
+      return i > 0 ? s.slice(0, i + 1) : s;
+    };
+    const items = [
+      ...(data.templates || []).map((t) => ({
+        ...t, line: brief(t.summary), href: "projects.html#templates", cta: "Templates",
+      })),
+      ...(data.projects || []).map((p) => ({
+        ...p, line: `${p.subtitle}. ${brief(p.summary)}`, href: `projects.html#${p.id}`, cta: "Open project",
+      })),
+    ];
+    host.innerHTML = items
+      .map(
+        (it) => `
+        <article class="card">
+          <span class="tag ${esc(it.tagClass || "")}">${esc(it.tag)}</span>
+          <h3>${esc(it.title)}</h3>
+          <p>${esc(it.line)}</p>
+          <div class="card-foot">
+            <span class="mono muted">${esc(it.path)}</span>
+            <a id="roadmap-${esc(it.id)}" href="${esc(it.href)}">${esc(it.cta)}</a>
           </div>
         </article>`
       )
@@ -372,6 +406,10 @@
 
   /* ----------------------- WIRING --------------------------- */
   document.addEventListener("DOMContentLoaded", () => {
+    if (page === "home") {
+      renderRoadmap(document.getElementById("roadmap-grid"));
+    }
+
     if (page === "projects") {
       renderTemplates(document.getElementById("templates-grid"));
       renderProjects(document.getElementById("projects-list"));
