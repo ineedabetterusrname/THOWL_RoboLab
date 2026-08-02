@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TH OWL Robo Lab — Contact</title>
+  <meta name="description" content="Request permission to use the UR10e and contact the CAAD team at TH OWL Robo Lab.">
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body data-page="contact">
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="TH OWL Robo Lab">
+      <img class="brand-logo" src="media/th-owl.png" alt="TH OWL" />
+      <span class="brand-text">
+        <strong>TH OWL Robo Lab</strong>
+        <small>UR10e · Architecture &amp; Robotics</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="hardware.html">Safety &amp; Hardware</a>
+      <a class="active" href="contact.html">Contact</a>
+    </nav>
+    <div class="topbar-utility">
+      <span class="status-pill">LAB ONLINE</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO ------------------------------------------------- -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Request access · Get in touch</p>
+        <h1>Book time on the robot.</h1>
+        <p class="lead">
+          Nobody uses the UR10e without prior permission from the CAAD
+          department, and nobody works with it alone. Send the request below
+          and we will come back to you with a slot and a supervisor. For
+          anything that isn't a booking, write to us directly.
+        </p>
+        <div class="hero-cta">
+          <a id="btn-jump-request" class="btn btn-accent" href="#request">Request form</a>
+          <a id="btn-jump-people" class="btn" href="#people">Who to contact</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Quick reference">
+        <header>
+          <span>CAAD · Robo Lab</span>
+          <span class="led">SUPERVISED USE ONLY</span>
+        </header>
+        <dl>
+          <dt>Room</dt>      <dd>4.303, Building 4</dd>
+          <dt>Permission</dt><dd>CAAD department</dd>
+          <dt>Supervisor</dt><dd>Required, always</dd>
+          <dt>Robot</dt>     <dd>UR10e</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- REQUEST FORM ---------------------------------------- -->
+    <section class="section" id="request">
+      <div class="section-head">
+        <p class="eyebrow">Before you book</p>
+        <h2><span class="index">01 //</span> Robot use request</h2>
+        <p class="lede">
+          Fill in every field. The request goes to the Teaching Assistant with
+          the Head of Department in copy — we need the dates and the routine
+          hours to schedule supervision.
+        </p>
+      </div>
+
+      <form class="request-form" id="robot-request-form">
+        <div class="request-grid">
+          <label class="field" for="req-title">
+            <span>Project Title</span>
+            <input id="req-title" name="title" type="text" required
+                   placeholder="e.g. Running-bond wall study">
+          </label>
+
+          <label class="field" for="req-prof">
+            <span>Responsible Person (Prof.)</span>
+            <input id="req-prof" name="prof" type="text" required
+                   placeholder="e.g. Prof. Hans Sachs">
+          </label>
+
+          <label class="field full" for="req-description">
+            <span>Project Short description</span>
+            <textarea id="req-description" name="description" required maxlength="800"
+                      placeholder="What you want to build or test, and what the robot is needed for."></textarea>
+          </label>
+
+          <label class="field full" for="req-person">
+            <span>Person in charge of works on the robot</span>
+            <input id="req-person" name="person" type="text" required
+                   placeholder="Name · matriculation no. · e-mail">
+          </label>
+
+          <fieldset class="field full range">
+            <legend>Time Window of use (weeks)</legend>
+            <div class="range-row">
+              <label class="sub" for="req-date-from">
+                <span>From</span>
+                <input id="req-date-from" name="dateFrom" type="date" required>
+              </label>
+              <label class="sub" for="req-date-until">
+                <span>Until</span>
+                <input id="req-date-until" name="dateUntil" type="date" required>
+              </label>
+            </div>
+            <p class="range-hint" id="req-weeks-hint">
+              Pick a start and an end date — the number of weeks is worked out for you.
+            </p>
+          </fieldset>
+
+          <fieldset class="field full range">
+            <legend>Routine week/hours of time of use</legend>
+            <div class="weekday-row" id="req-weekdays">
+              <label class="weekday"><input type="checkbox" value="Mon"><span>Mon</span></label>
+              <label class="weekday"><input type="checkbox" value="Tue"><span>Tue</span></label>
+              <label class="weekday"><input type="checkbox" value="Wed"><span>Wed</span></label>
+              <label class="weekday"><input type="checkbox" value="Thu"><span>Thu</span></label>
+              <label class="weekday"><input type="checkbox" value="Fri"><span>Fri</span></label>
+              <label class="weekday"><input type="checkbox" value="Sat"><span>Sat</span></label>
+            </div>
+            <div class="range-row">
+              <label class="sub" for="req-time-from">
+                <span>From</span>
+                <input id="req-time-from" name="timeFrom" type="time" required>
+              </label>
+              <label class="sub" for="req-time-until">
+                <span>Until</span>
+                <input id="req-time-until" name="timeUntil" type="time" required>
+              </label>
+            </div>
+            <p class="range-hint">Select the weekdays you need, then the hours on those days.</p>
+          </fieldset>
+        </div>
+
+        <div class="request-actions">
+          <button class="btn btn-primary" id="btn-send-request" type="submit">Send request</button>
+          <button class="btn" id="btn-copy-request" type="button">Copy as text</button>
+          <p class="request-status" id="request-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="callout note mt-3">
+        <div class="ico">i</div>
+        <div>
+          <strong>How sending works.</strong>
+          <span>
+            <em>Send request</em> opens your own e-mail program with the request
+            already written, addressed to the Teaching Assistant with the Head of
+            Department in copy — check it, then press send. If no mail program
+            opens, use <em>Copy as text</em> and paste it into webmail.
+          </span>
+        </div>
+      </div>
+
+      <div class="callout danger mt-3">
+        <div class="ico">!</div>
+        <div>
+          <strong>A sent request is not yet a permission.</strong>
+          <span>
+            Wait for our confirmation before coming to the lab, and never run the
+            robot without a supervisor present. The rules are on the
+            <a class="callout-link" href="hardware.html#safety">Safety page</a>.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PEOPLE ---------------------------------------------- -->
+    <section class="section" id="people">
+      <div class="section-head">
+        <p class="eyebrow">CAAD department</p>
+        <h2><span class="index">02 //</span> Who to contact</h2>
+        <p class="lede">
+          Questions about a project, a permission, or the lab itself go to
+          either of us directly.
+        </p>
+      </div>
+
+      <div class="grid cols-2" id="contact-people">
+        <!-- rendered by app.js -->
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="credits">TH OWL · Architecture &amp; Robotics</span>
+        <address class="address">
+          Raum 4.303, Building 4, TH OWL<br>
+          Bielefelder Str. 25, 32756 Detmold
+        </address>
+      </div>
+      <div class="footer-right">
+        Maintained by the Robo Lab team.<br>
+        PRs welcome on <a href="https://github.com/ineedabetterusrname/THOWL_RoboLab" target="_blank" rel="noopener">GitHub</a>.
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="data.js?v=6"></script>
+  <script src="app.js?v=6"></script>
+</body>
+</html>

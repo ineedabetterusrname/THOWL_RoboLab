@@ -167,8 +167,27 @@ window.RoboLabData = {
       ticks: ["SIM + REAL", "RASTER SCAN", "1 FILE"],
     },
     {
-      id: "robo-lab-model",
+      id: "tapo-camera-access",
       number: "08",
+      title: "Tapo Camera Access",
+      subtitle: "RTSP camera streams in Python",
+      tag: "Computer Vision",
+      tagClass: "tag-navy",
+      summary:
+        "One module and five command-line tools for reading the lab's Tapo cameras over RTSP. Handles the awkward parts for you: a reader thread that always hands back the newest frame instead of a stale buffered one, automatic reconnects, and an HTTP relay so a whole group can watch without exhausting the camera's two-client limit. Knows nothing about the robot, so it drops into any project.",
+      tools: ["Python", "OpenCV", "RTSP", "ONVIF"],
+      controls: [
+        "probe.py diagnoses the connection before OpenCV gets involved",
+        "serve.py re-streams to a browser — no Python needed to watch",
+        "Credentials and IPs come from the CAAD lab administrator, never the repo",
+      ],
+      path: "Projects/Tapo_Camera_Access/",
+      file: "tapocam.py",
+      ticks: ["RTSP", "MULTI-CAM", "HTTP RELAY"],
+    },
+    {
+      id: "robo-lab-model",
+      number: "09",
       title: "Robo Lab 3D Model",
       subtitle: "Digital twin of the cell",
       tag: "Reference",
@@ -319,4 +338,27 @@ window.RoboLabData = {
       body: "Stay on robot-wifi. Never commit IPs, passwords, or auth tokens to the GitHub repo — use placeholders like YOUR_IP and a local .env.",
     },
   ],
+
+  /* --------------------------- CONTACT ---------------------- */
+  // Robot-use requests are addressed to `to`, with `cc` copied in.
+  // Change these two lines to redirect where requests land.
+  contact: {
+    to: "hrithik.shetty@th-owl.de",
+    cc: "hans.sachs@th-owl.de",
+    subjectPrefix: "Robot Lab Request",
+    people: [
+      {
+        id: "hans-sachs",
+        name: "Prof. Hans Sachs",
+        role: "Head of Department — CAAD",
+        email: "hans.sachs@th-owl.de",
+      },
+      {
+        id: "hrithik-shetty",
+        name: "Hrithik Shetty",
+        role: "Teaching Assistant — CAAD",
+        email: "hrithik.shetty@th-owl.de",
+      },
+    ],
+  },
 };
