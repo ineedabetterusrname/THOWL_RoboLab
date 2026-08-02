@@ -1,0 +1,22 @@
+# Local tool / editor state
+.omc/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets. Never commit a filled-in environment file.
+# The one exception is the deliberately EMPTY template shipped with the
+# camera project, which students copy and fill in locally.
+.env
+!Projects/Tapo_Camera_Access/.env
+
+# Rhino automatic backups -- same size as the model, no value in the repo.
+*.3dmbak
