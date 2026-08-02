@@ -1,4 +1,4 @@
-This is an ambitious and cutting-edge project. Using **Gemini 1.5 Pro/ER** (Embodied Reasoning) as the reasoning engine for a **Pi Zero 2 W**-controlled **UR10e** creates a "Cloud-Brain, Edge-Body" architecture.
+This is an ambitious and cutting-edge project. Using **Gemini 2.5 Pro** (or whichever Pro model is current — check [ai.google.dev](https://ai.google.dev/gemini-api/docs/models) as older models are retired) as the reasoning engine for a **Pi Zero 2 W**-controlled **UR10e** creates a "Cloud-Brain, Edge-Body" architecture.
 
 Since the Pi Zero 2 W is limited in processing power, it will act as a **sensor/actuator node**, while a more powerful workstation (or the cloud) will run the Gemini logic.
 
@@ -63,7 +63,7 @@ from google.generativeai import GenerativeModel
 
 # Initialize UR10e and Gemini
 rtde_c = RTDEControlInterface("192.168.1.100")
-model = GenerativeModel('gemini-1.5-pro')
+model = GenerativeModel('gemini-2.5-pro')  # use the current Pro model
 
 def run_learning_cycle():
     # 1. Get image from Pi Zero 2 W

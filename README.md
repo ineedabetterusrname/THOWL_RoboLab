@@ -73,6 +73,10 @@ The end of the robot (Wrist 3) is where you mount your tools (grippers, cameras,
 
 This repository is organized into modular projects. Start with the **Python Template** if you are a beginner.
 
+> 🌐 The full catalogue — with safety rules, a robot-use request form and
+> per-project ZIP downloads — lives on the lab website:
+> **https://ineedabetterusrname.github.io/THOWL_RoboLab/**
+
 ### 🐣 [A. Python Template](./UR10e_Documentation/Python_Template/)
 The absolute basics. A single script to connect to the robot and perform a simple move. Use this to verify your connection.
 *   **Key Tool:** `ur_rtde` library.
@@ -86,7 +90,31 @@ Advanced vision tools for the TP-Link Tapo C110. Includes AprilTag calibration f
 *   **Key Tools:** OpenCV, AprilTag.
 
 ### 🧠 [D. AI Camera Integration](./Projects/Raspberrypi+AI_camera/)
-A "Cloud-Brain, Edge-Body" project using Raspberry Pi Zero 2 W and the AI Camera (IMX500) to create a self-learning robot powered by Gemini 1.5 Pro.
+A "Cloud-Brain, Edge-Body" project using Raspberry Pi Zero 2 W and the AI Camera (IMX500) to create a self-learning robot powered by the Gemini API.
+
+### 🪝 [E. Hanger](./Projects/Hanger/)
+Rhino + Grasshopper definition for the suspended-element workflow in room 4.303.
+*   **Key Tools:** Rhino, Grasshopper.
+
+### 🧱 [F. Robotic Bricklaying](./Projects/Robotic_Bricklaying/)
+Computed masonry: the UR10e lays a small running-bond wall generated entirely from parameters.
+*   **Key Tools:** `ur_rtde`, web simulator.
+
+### 🏺 [G. Contour Crafting](./Projects/Contour_Crafting/)
+Construction-scale 3D printing in miniature — a tapering, twisting superellipse traced layer by layer.
+*   **Key Tools:** `ur_rtde`, web simulator.
+
+### 🏢 [H. Façade Scanning](./Projects/Facade_Scanning/)
+Robotic building inspection: a serpentine raster sweep with a capture pause at every grid point.
+*   **Key Tools:** `ur_rtde`, web simulator.
+
+### 📷 [I. Tapo Camera Access](./Projects/Tapo_Camera_Access/)
+Read the lab's Tapo cameras over RTSP from Python — reader thread, auto-reconnect, HTTP relay for groups.
+*   **Key Tools:** OpenCV, RTSP. Credentials come from the CAAD lab administrator, never this repo.
+
+### 🏗️ [J. Robo Lab 3D Model](./Projects/Robo_lab_Model/)
+The digital twin of the robot cell and Room 4 — use it for collision checks and planning before fabricating.
+*   **Key Tools:** Rhino, Grasshopper.
 
 ---
 

@@ -42,13 +42,18 @@ def main():
     y0 = base[1] - PANEL_W / 2
     z0 = base[2] - 0.05
 
+    # A single row or column is a valid scan (a vertical or horizontal
+    # line) - guard the division instead of crashing on COLS=1 / ROWS=1.
+    y_step = PANEL_W / (COLS - 1) if COLS > 1 else 0.0
+    z_step = PANEL_H / (ROWS - 1) if ROWS > 1 else 0.0
+
     captures = 0
     for row in range(ROWS):
         cols = range(COLS) if row % 2 == 0 else range(COLS - 1, -1, -1)
         for col in cols:                       # serpentine: no wasted travel
             pose = list(base)
-            pose[1] = y0 + col * (PANEL_W / (COLS - 1))
-            pose[2] = z0 - row * (PANEL_H / (ROWS - 1))
+            pose[1] = y0 + col * y_step
+            pose[2] = z0 - row * z_step
             rtde_c.moveL(pose, speed=SCAN_SPEED)
             captures += 1
             print(f"capture {captures:02d}/{ROWS * COLS}  "
