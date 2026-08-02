@@ -1,0 +1,57 @@
+{
+  "ai-camera": {
+    "bytes": 2995,
+    "files": 1,
+    "path": "Projects/Raspberrypi+AI_camera"
+  },
+  "contour-crafting": {
+    "bytes": 2252,
+    "files": 2,
+    "path": "Projects/Contour_Crafting"
+  },
+  "facade-scanning": {
+    "bytes": 2142,
+    "files": 2,
+    "path": "Projects/Facade_Scanning"
+  },
+  "hanger": {
+    "bytes": 49297,
+    "files": 2,
+    "path": "Projects/Hanger/Bo"
+  },
+  "interactive-robot": {
+    "bytes": 20858577,
+    "files": 103,
+    "path": "Projects/Interactive_robot"
+  },
+  "python-template": {
+    "bytes": 2230,
+    "files": 2,
+    "path": "UR10e_Documentation/Python_Template"
+  },
+  "rhino-template": {
+    "bytes": 3504422,
+    "files": 2,
+    "path": "UR10e_Documentation/Rhino+Grasshopper_Template"
+  },
+  "robo-lab-model": {
+    "bytes": 404155,
+    "files": 4,
+    "path": "Projects/Robo_lab_Model"
+  },
+  "robotic-bricklaying": {
+    "bytes": 2977,
+    "files": 2,
+    "path": "Projects/Robotic_Bricklaying"
+  },
+  "tapo-camera-access": {
+    "bytes": 26793,
+    "files": 11,
+    "path": "Projects/Tapo_Camera_Access"
+  },
+  "tapo-vision": {
+    "bytes": 7817222,
+    "files": 49,
+    "path": "Projects/Tapo_camera"
+  }
+}
