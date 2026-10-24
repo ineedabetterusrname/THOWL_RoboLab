@@ -8,7 +8,7 @@
      2. `exceptions` — date ranges that override the pattern,
                        applied in the order listed
    Days after `validUntil` (and before `validFrom`) show as
-   "Ask supervisors".
+   "Schedule not out yet".
 
    status: "available" | "booked" | "requested" | "event" | "unavailable"
    Dates are YYYY-MM-DD. `to` is inclusive and optional.
@@ -16,7 +16,7 @@
 
 window.RoboLabSchedule = {
   validFrom: "2026-10-01",
-  validUntil: "2026-11-30",
+  validUntil: "2026-11-22",
 
   weekly: {
     mon: { status: "booked",      title: "RESET Conference working session", time: "All day",            who: "Hrithik, Tareef & Hossein" },

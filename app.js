@@ -421,7 +421,7 @@
     const today = new Date(); today.setHours(0, 0, 0, 0);
 
     const entryFor = (d) => {
-      if (d < from || d > until) return { status: "ask", title: "Ask supervisors" };
+      if (d < from || d > until) return { status: "ask", title: "Schedule not out yet" };
       let entry = (sched.weekly || {})[DAY_KEYS[d.getDay()]] || { status: "ask", title: "Ask supervisors" };
       const key = iso(d);
       (sched.exceptions || []).forEach((ex) => {
