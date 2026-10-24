@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img">
+<path d="M40 120 Q40 70 90 60 L300 22 Q400 6 500 22 L710 60 Q760 70 760 120 L760 520 Q760 548 730 548 L70 548 Q40 548 40 520 Z" fill="#9aa3a3" stroke="#7c8585" stroke-width="2"/>
+<rect x="90" y="44" width="170" height="40" rx="3" fill="#f3e3c8"/>
+<text x="175" y="70" text-anchor="middle" font-size="18" fill="#333" font-family="Roboto, Helvetica, Arial, sans-serif">xxx.xxx.xxx.xxx</text>
+<circle cx="400" cy="62" r="46" fill="#e8892a"/><circle cx="400" cy="58" r="36" fill="#c8202a"/>
+<text x="400" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#ffd9d9" font-family="Roboto, Helvetica, Arial, sans-serif">E-STOP</text>
+<circle cx="560" cy="62" r="30" fill="#22d34a" opacity=".35"/><circle cx="560" cy="62" r="24" fill="#555b60" stroke="#c9ccd0" stroke-width="3"/>
+<circle cx="560" cy="62" r="15" fill="none" stroke="#22d34a" stroke-width="5"/>
+<path d="M560 46 V62" stroke="#22d34a" stroke-width="5" stroke-linecap="round"/>
+<text x="728" y="70" text-anchor="end" font-size="16" font-weight="700" fill="#2c3136" font-family="Roboto, Helvetica, Arial, sans-serif">TEACH PENDANT</text>
+<rect x="66" y="120" width="668" height="404" rx="4" fill="#1c1f23"/>
+<svg x="74" y="128" width="652" height="388" viewBox="0 0 652 388"><rect width="652" height="54" fill="#2b2f36"/><rect width="48" height="54" fill="#1e74d0" opacity=".85"/><rect x="8" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="25" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Run</text><rect x="60" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="77" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Program</text><rect x="112" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="129" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Installation</text><rect x="164" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="181" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Move</text><rect x="216" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="233" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">I/O</text><rect x="268" y="8" width="34" height="26" rx="3" fill="#5a6270"/><text x="285" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Log</text>
+<text x="330" y="24" font-size="11" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">&lt;unnamed&gt;</text><text x="330" y="40" font-size="11" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">default</text>
+<rect x="558" y="10" width="34" height="24" rx="3" fill="none" stroke="#cfd4dc" stroke-width="2"/>
+<text x="575" y="46" text-anchor="middle" font-size="9" fill="#cfd4dc" font-family="Roboto, Helvetica, Arial, sans-serif">Local</text>
+<path d="M614 14 h26 M614 22 h26 M614 30 h26" stroke="#cfd4dc" stroke-width="3"/><rect x="546" y="0" width="58" height="56" rx="10" fill="none" stroke="#e2003c" stroke-width="4" stroke-dasharray="10 6"/><rect y="54" width="652" height="286" fill="#e6eaf2"/>
+<rect x="420" y="60" width="210" height="96" rx="4" fill="#fff" stroke="#9aa5c2"/>
+<text x="436" y="82" font-size="11" fill="#444" font-family="Roboto, Helvetica, Arial, sans-serif">Control mode</text>
+<rect x="436" y="92" width="80" height="26" fill="#eef1f6" stroke="#9aa5c2"/><text x="476" y="109" text-anchor="middle" font-size="11" font-family="Roboto, Helvetica, Arial, sans-serif">Local</text>
+<rect x="526" y="92" width="88" height="26" fill="#1e74d0"/><text x="570" y="109" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Roboto, Helvetica, Arial, sans-serif">Remote</text>
+<rect x="520" y="86" width="100" height="38" rx="6" fill="none" stroke="#e2003c" stroke-width="4" stroke-dasharray="10 6"/>
+<text x="436" y="142" font-size="10" fill="#444" font-family="Roboto, Helvetica, Arial, sans-serif">Robot IP: xxx.xxx.xxx.xxx</text><rect y="340" width="652" height="48" fill="#2b2f36"/>
+<circle cx="26" cy="364" r="12" fill="#1b9a2e" stroke="#fff" stroke-width="3"/>
+<text x="46" y="369" font-size="14" font-weight="700" fill="#fff" font-family="Roboto, Helvetica, Arial, sans-serif">Normal</text>
+<rect x="250" y="358" width="130" height="6" rx="3" fill="#1e74d0"/><circle cx="380" cy="361" r="8" fill="#4a90e2"/>
+<text x="315" y="382" text-anchor="middle" font-size="11" fill="#fff" font-family="Roboto, Helvetica, Arial, sans-serif">Speed 100%</text>
+<text x="560" y="369" font-size="12" fill="#fff" font-family="Roboto, Helvetica, Arial, sans-serif">Simulation</text><rect x="616" y="356" width="30" height="16" rx="8" fill="#888"/></svg>
+</svg>

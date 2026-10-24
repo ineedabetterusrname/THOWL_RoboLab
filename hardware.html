@@ -43,6 +43,7 @@
         </p>
         <div class="hero-cta">
           <a id="btn-jump-safety" class="btn btn-accent" href="#safety">Safety rules</a>
+          <a id="btn-jump-startup" class="btn" href="#startup">Start the robot</a>
           <a id="btn-jump-hardware" class="btn" href="#hardware">Hardware library</a>
         </div>
       </div>
@@ -100,11 +101,58 @@
       </div>
     </section>
 
+    <!-- STARTUP ---------------------------------------------- -->
+    <section class="section" id="startup">
+      <div class="section-head">
+        <p class="eyebrow">Powering up</p>
+        <h2><span class="index">02 //</span> Starting the UR10e</h2>
+        <p class="lede">
+          Follow these steps on the teach pendant every time you switch the robot on.
+          The highlighted control is the one to tap.
+        </p>
+      </div>
+
+      <div class="startup-steps">
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/01-power-on.svg" alt="Pendant illustration: Power on the pendant" loading="lazy" />
+          <figcaption><span class="step-no">01</span><strong>Power on the pendant</strong><span>Press the power button on the top of the teach pendant. The ring lights up <strong>green</strong> and the controller starts booting.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/02a-remind-me-later.svg" alt="Pendant illustration: Skip the registration prompt" loading="lazy" />
+          <figcaption><span class="step-no">02</span><strong>Skip the registration prompt</strong><span>A registration / update request appears. Under <em>Option B</em>, tap <strong>Remind me later</strong>.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/02b-system-startup.svg" alt="Pendant illustration: Continue to System Startup" loading="lazy" />
+          <figcaption><span class="step-no">03</span><strong>Continue to System Startup</strong><span>The <em>Registration Postponed</em> page opens. Tap <strong>System Startup</strong>.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/03-power-off-button.svg" alt="Pendant illustration: Open the Initialize screen" loading="lazy" />
+          <figcaption><span class="step-no">04</span><strong>Open the Initialize screen</strong><span>The main Run screen loads. In the bottom-left corner it says <strong>Power off</strong> with a red dot. Tap it.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/04-initialize-on.svg" alt="Pendant illustration: Power the arm" loading="lazy" />
+          <figcaption><span class="step-no">05</span><strong>Power the arm</strong><span>The <em>Initialize</em> tab opens. Check that Installation and Payload are correct, then tap <strong>ON</strong>. The robot boots, but the arm is not active yet.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/05-start-brakes.svg" alt="Pendant illustration: Release the brakes" loading="lazy" />
+          <figcaption><span class="step-no">06</span><strong>Release the brakes</strong><span>Once the status shows <em>Robot Active</em> (yellow), tap <strong>START</strong>. Stand clear: you will hear the joint brakes <strong>click</strong> as they release.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/06-robot-ready.svg" alt="Pendant illustration: Confirm it is on" loading="lazy" />
+          <figcaption><span class="step-no">07</span><strong>Confirm it is on</strong><span>All five status steps show a <strong>green tick</strong> and the bottom-left reads <strong>Normal</strong>. The robot is on. Tap <em>Exit</em>.</span></figcaption>
+        </figure>
+        <figure class="startup-step">
+          <img src="images/ur10e_startup/07-local-remote.svg" alt="Pendant illustration: Local or Remote control" loading="lazy" />
+          <figcaption><span class="step-no">08</span><strong>Local or Remote control</strong><span>Top right shows <strong>Local</strong>: the robot can only be driven from the pendant. To control it from your laptop, tap it and switch to <strong>Remote</strong>. The robot has a fixed IP: use the one shown on the pendant (never commit it to the repo).</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- TOOL FLANGE ----------------------------------------- -->
     <section class="section" id="tool-flange">
       <div class="section-head">
         <p class="eyebrow">Where your tools live</p>
-        <h2><span class="index">02 //</span> The Tool Flange</h2>
+        <h2><span class="index">03 //</span> The Tool Flange</h2>
         <p class="lede">
           End-effectors mount on wrist 3. The flange has its own electrical
           connector and provides power, so you don't need cables running
@@ -144,7 +192,7 @@
     <section class="section" id="hardware">
       <div class="section-head">
         <p class="eyebrow">What's in the lab</p>
-        <h2><span class="index">03 //</span> Hardware library</h2>
+        <h2><span class="index">04 //</span> Hardware library</h2>
         <p class="lede">
           Filter by category or search by name, spec, or use. Add new
           hardware in <code>data.js</code> — it appears here automatically.
@@ -170,7 +218,7 @@
     <section class="section" id="network">
       <div class="section-head">
         <p class="eyebrow">Connectivity</p>
-        <h2><span class="index">04 //</span> Lab network</h2>
+        <h2><span class="index">05 //</span> Lab network</h2>
         <p class="lede">All robot control assumes you are on the lab Wi-Fi. Outside that network, nothing reaches the controller.</p>
       </div>
 

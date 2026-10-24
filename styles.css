@@ -1435,3 +1435,21 @@ pre code {
 @media (max-width: 420px) {
   .range-row { grid-template-columns: 1fr; }
 }
+
+/* ---------- UR10e startup guide ---------- */
+.startup-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+@media (max-width: 760px) { .startup-steps { grid-template-columns: 1fr; } }
+.startup-step {
+  margin: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.startup-step img { display: block; width: 100%; height: auto; background: var(--soft); }
+.startup-step figcaption { display: grid; gap: 4px; padding: 14px 16px 16px; color: var(--ink-2); }
+.startup-step .step-no { font-family: monospace; color: var(--accent); font-weight: 700; }
