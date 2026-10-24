@@ -20,3 +20,6 @@ venv/
 
 # Rhino automatic backups -- same size as the model, no value in the repo.
 *.3dmbak
+
+# Claude Code local preview settings
+.claude/
