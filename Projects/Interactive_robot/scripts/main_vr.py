@@ -6,7 +6,7 @@ import numpy as np
 
 # VR Controller ID Mapping (Generic OpenVR/Touch)
 BUTTON_A = 7
-BUTTON_TRIGGER = 33 
+BUTTON_TRIGGER = 33  # analog value arrives in e[3]
 
 class VRRobot:
     def __init__(self):
@@ -67,11 +67,15 @@ class VRRobot:
             trigger_val = 0.0
             reset_pressed = False
             
+            # getVREvents() tuples: [0] controller id, [1] position,
+            # [2] orientation, [3] analog trigger 0..1, [6] list of 64
+            # button states (bit flags), [7] device type.
             for e in events:
-                if e[6].get(BUTTON_A) == 1.0: reset_pressed = True
-                if e[1] & p.VR_DEVICE_CONTROLLER:
-                    controller_pos, controller_orn = e[2], e[3]
-                    trigger_val = e[6].get(33, 0.0) 
+                buttons = e[6]
+                if buttons[BUTTON_A] & p.VR_BUTTON_WAS_TRIGGERED: reset_pressed = True
+                if e[7] & p.VR_DEVICE_CONTROLLER:
+                    controller_pos, controller_orn = e[1], e[2]
+                    trigger_val = e[3]
 
             if reset_pressed: self.reset_robot()
             

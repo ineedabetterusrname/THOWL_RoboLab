@@ -16,16 +16,29 @@ import time
 import os
 import json
 from datetime import datetime
+from urllib.parse import quote
 from pupil_apriltags import Detector
 
 # ==========================================================
 # CONFIGURATION
 # ==========================================================
-TAPO_USERNAME = "your_username"
-TAPO_PASSWORD = "your_password"
-IP_ADDRESS    = "192.168.x.x"
+# Credentials and the camera address are read from environment variables so
+# they never end up in this file (and in git). Set them in your shell first:
+#   macOS/Linux:  export TAPO_USER=...  TAPO_PASS=...  TAPO_HOST=...
+#   Windows:      set TAPO_USER=...     (one per line)
+# Use the CAMERA ACCOUNT from the Tapo app, not your Tapo login.
+TAPO_USERNAME = os.environ.get("TAPO_USER", "")
+TAPO_PASSWORD = os.environ.get("TAPO_PASS", "")
+IP_ADDRESS    = os.environ.get("TAPO_HOST", "")
 
-RTSP_URL = f"rtsp://{TAPO_USERNAME}:{TAPO_PASSWORD}@{IP_ADDRESS}:554/stream2"
+# Passwords may contain @ : / which would break the URL - quote them.
+RTSP_URL = (f"rtsp://{quote(TAPO_USERNAME, safe='')}:{quote(TAPO_PASSWORD, safe='')}"
+            f"@{IP_ADDRESS}:554/stream2")
+
+# Files are read and written next to this script, wherever you run it from.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CALIBRATION_FILE = os.path.join(BASE_DIR, "calibration.json")
+SESSIONS_DIR = os.path.join(BASE_DIR, "calibration_sessions")
 
 # PRE-CALCULATED LENS PARAMETERS (used if calibration.json doesn't exist)
 DEFAULT_CAMERA_MATRIX = np.array([
@@ -40,9 +53,9 @@ DEFAULT_DIST_COEFFS = np.array([
 
 def load_calibration():
     """Load calibration from calibration.json if it exists, otherwise use defaults."""
-    if os.path.exists("calibration.json"):
+    if os.path.exists(CALIBRATION_FILE):
         try:
-            with open("calibration.json", 'r') as f:
+            with open(CALIBRATION_FILE, 'r') as f:
                 data = json.load(f)
             mtx = np.array(data["camera_matrix"], dtype=np.float32)
             dist = np.array(data["dist_coeffs"], dtype=np.float32)
@@ -161,7 +174,7 @@ class TapoAprilTagTracker:
 
     def _start_new_session(self):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.session_folder = f"calibration_sessions/session_{timestamp}"
+        self.session_folder = os.path.join(SESSIONS_DIR, f"session_{timestamp}")
         os.makedirs(self.session_folder, exist_ok=True)
         print(f"Created new session folder: {self.session_folder}")
 
@@ -204,7 +217,7 @@ class TapoAprilTagTracker:
 
     def _list_sessions(self):
         """List available sessions and let user choose one."""
-        sessions_dir = "calibration_sessions"
+        sessions_dir = SESSIONS_DIR
         if not os.path.exists(sessions_dir):
             print("No calibration sessions found.")
             return None
@@ -256,7 +269,7 @@ class TapoAprilTagTracker:
 
     def _rebuild_sessions(self):
         """Rebuild session data from saved images."""
-        sessions_dir = "calibration_sessions"
+        sessions_dir = SESSIONS_DIR
         if not os.path.exists(sessions_dir):
             print("No calibration sessions found.")
             return
@@ -464,7 +477,7 @@ class TapoAprilTagTracker:
                     "camera_matrix": self.camera_matrix.tolist(),
                     "dist_coeffs": self.dist_coeffs.tolist()
                 }
-                with open("calibration.json", 'w') as f:
+                with open(CALIBRATION_FILE, 'w') as f:
                     json.dump(data, f, indent=4)
                 print("Saved current calibration to calibration.json")
             elif key == ord('v') and self.is_calibrated:
@@ -821,5 +834,7 @@ class TapoAprilTagTracker:
             self.is_calculating = False
 
 if __name__ == "__main__":
+    if not (TAPO_USERNAME and TAPO_PASSWORD and IP_ADDRESS):
+        raise SystemExit("Set TAPO_USER, TAPO_PASS and TAPO_HOST first (see the top of test.py).")
     tracker = TapoAprilTagTracker(RTSP_URL)
     tracker.run()

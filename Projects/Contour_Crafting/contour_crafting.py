@@ -43,34 +43,42 @@ def main():
     rtde_c = rtde_control.RTDEControlInterface(ROBOT_IP)
     rtde_r = rtde_receive.RTDEReceiveInterface(ROBOT_IP)
 
-    rtde_c.moveJ(WORK_POSE, speed=1.0)
-    base = rtde_r.getActualTCPPose()
+    try:
+        rtde_c.moveJ(WORK_POSE, speed=1.0)
+        base = rtde_r.getActualTCPPose()
 
-    # print bed: centred on the work pose, 25 cm below it
-    cx, cy, z0 = base[0], base[1], base[2] - 0.25
+        # print bed: centred on the work pose, 25 cm below it
+        cx, cy, z0 = base[0], base[1], base[2] - 0.25
 
-    for layer in range(LAYERS):
-        t = layer / max(1, LAYERS - 1)
-        r = RADIUS * (1 - t * (1 - TAPER))          # taper towards the top
-        twist = TWIST * t                            # accumulated twist
-        z = z0 + layer * LAYER_H
-        print(f"layer {layer + 1}/{LAYERS}  r={r * 1000:.0f} mm")
+        for layer in range(LAYERS):
+            t = layer / max(1, LAYERS - 1)
+            r = RADIUS * (1 - t * (1 - TAPER))          # taper towards the top
+            twist = TWIST * t                            # accumulated twist
+            z = z0 + layer * LAYER_H
+            print(f"layer {layer + 1}/{LAYERS}  r={r * 1000:.0f} mm")
 
-        for k in range(SEGMENTS + 1):
-            a = twist + 2 * math.pi * k / SEGMENTS
-            x, y = profile_point(cx, cy, r, a)
-            pose = list(base)
-            pose[0], pose[1], pose[2] = x, y, z
-            # first point of a layer: travel move; rest: "extrusion" moves
-            rtde_c.moveL(pose, speed=PRINT_SPEED if k else 0.25)
+            for k in range(SEGMENTS + 1):
+                a = twist + 2 * math.pi * k / SEGMENTS
+                x, y = profile_point(cx, cy, r, a)
+                pose = list(base)
+                pose[0], pose[1], pose[2] = x, y, z
+                # first point of a layer: travel move; rest: "extrusion" moves
+                rtde_c.moveL(pose, speed=PRINT_SPEED if k else 0.25)
 
-    # lift the nozzle clear and go home
-    end = rtde_r.getActualTCPPose()
-    end[2] += 0.10
-    rtde_c.moveL(end, speed=0.25)
-    rtde_c.moveJ(WORK_POSE, speed=1.0)
-    print("print finished:", LAYERS, "layers,", LAYERS * SEGMENTS, "extrusion segments")
-    rtde_c.disconnect()
+        # lift the nozzle clear and go home
+        end = rtde_r.getActualTCPPose()
+        end[2] += 0.10
+        rtde_c.moveL(end, speed=0.25)
+        rtde_c.moveJ(WORK_POSE, speed=1.0)
+        print("print finished:", LAYERS, "layers,", LAYERS * SEGMENTS, "extrusion segments")
+    finally:
+        # Runs on Ctrl-C or an error too: stop the arm instead of
+        # leaving the last motion running, then release the connection.
+        try:
+            rtde_c.stopScript()
+        except Exception:
+            pass
+        rtde_c.disconnect()
 
 if __name__ == "__main__":
     main()

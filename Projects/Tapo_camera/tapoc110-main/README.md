@@ -29,14 +29,18 @@ pip install opencv-python numpy pupil-apriltags
 
 ## Configuration
 
-Edit the settings at the top of `test.py`:
+Set the camera connection as environment variables (never write them into
+the script, so they can't be committed by accident):
+
+```bash
+export TAPO_USER=camera_account_user
+export TAPO_PASS=camera_account_password
+export TAPO_HOST=<camera IP - ask the lab admin>
+```
+
+Grid settings are at the top of `test.py`:
 
 ```python
-# Camera connection
-TAPO_USERNAME = "your_username"
-TAPO_PASSWORD = "your_password"
-IP_ADDRESS = "192.168.x.x"
-
 # Tag grid settings (must match your printed grid)
 TAG_SIZE_MM = 32.0      # Outer edge of tag in mm
 GRID_COLS = 6           # Number of columns

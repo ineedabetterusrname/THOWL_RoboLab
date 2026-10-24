@@ -45,34 +45,42 @@ def main():
     rtde_c = rtde_control.RTDEControlInterface(ROBOT_IP)
     rtde_r = rtde_receive.RTDEReceiveInterface(ROBOT_IP)
 
-    rtde_c.moveJ(WORK_POSE, speed=VEL_J)
-    base = rtde_r.getActualTCPPose()           # everything is relative
+    try:
+        rtde_c.moveJ(WORK_POSE, speed=VEL_J)
+        base = rtde_r.getActualTCPPose()           # everything is relative
 
-    # supply station: one fixed pick point, 15 cm to -Y, 20 cm down
-    pick = list(base)
-    pick[1] -= 0.15
-    pick[2] -= 0.20
+        # supply station: one fixed pick point, 15 cm to -Y, 20 cm down
+        pick = list(base)
+        pick[1] -= 0.15
+        pick[2] -= 0.20
 
-    # wall: first brick sits 8 cm to +Y of the work pose, same height
-    wall_y0 = base[1] + 0.08
-    wall_z0 = base[2] - 0.20
+        # wall: first brick sits 8 cm to +Y of the work pose, same height
+        wall_y0 = base[1] + 0.08
+        wall_z0 = base[2] - 0.20
 
-    total = 0
-    for course in range(COURSES):
-        # running bond: every second course shifts by half a brick
-        offset = (BRICK_L + JOINT_GAP) / 2 if course % 2 else 0.0
-        print(f"course {course + 1}/{COURSES}")
-        for i in range(BRICKS_PER_COURSE):
-            place = list(base)
-            place[1] = wall_y0 + offset + i * (BRICK_L + JOINT_GAP)
-            place[2] = wall_z0 + course * BRICK_H
-            move_pick_place(rtde_c, pick, place,
-                            f"grip brick {total + 1}", f"release at course {course + 1}, bay {i + 1}")
-            total += 1
+        total = 0
+        for course in range(COURSES):
+            # running bond: every second course shifts by half a brick
+            offset = (BRICK_L + JOINT_GAP) / 2 if course % 2 else 0.0
+            print(f"course {course + 1}/{COURSES}")
+            for i in range(BRICKS_PER_COURSE):
+                place = list(base)
+                place[1] = wall_y0 + offset + i * (BRICK_L + JOINT_GAP)
+                place[2] = wall_z0 + course * BRICK_H
+                move_pick_place(rtde_c, pick, place,
+                                f"grip brick {total + 1}", f"release at course {course + 1}, bay {i + 1}")
+                total += 1
 
-    rtde_c.moveJ(WORK_POSE, speed=VEL_J)
-    print(f"wall complete: {total} bricks, {COURSES} courses")
-    rtde_c.disconnect()
+        rtde_c.moveJ(WORK_POSE, speed=VEL_J)
+        print(f"wall complete: {total} bricks, {COURSES} courses")
+    finally:
+        # Runs on Ctrl-C or an error too: stop the arm instead of
+        # leaving the last motion running, then release the connection.
+        try:
+            rtde_c.stopScript()
+        except Exception:
+            pass
+        rtde_c.disconnect()
 
 if __name__ == "__main__":
     main()

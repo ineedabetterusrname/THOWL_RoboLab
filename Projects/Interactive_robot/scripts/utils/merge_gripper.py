@@ -72,8 +72,8 @@ def merge(arm_urdf, gripper_urdf, output_urdf):
     print(f"Success! Created: {output_urdf}")
 
 if __name__ == "__main__":
-    # Assuming run from scripts/utils/
-    models_dir = os.path.join("..", "..", "models")
+    # Resolve models/ relative to this file, so it works from any directory.
+    models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "models")
     merge(
         os.path.join(models_dir, "ur10e.urdf"),
         os.path.join(models_dir, "gripper.urdf"),
