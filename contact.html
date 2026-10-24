@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TH OWL Robo Lab — Contact</title>
   <meta name="description" content="Request permission to use the UR10e and contact the CAAD team at TH OWL Robo Lab.">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body data-page="contact">
 
@@ -42,6 +42,7 @@
           anything that isn't a booking, write to us directly.
         </p>
         <div class="hero-cta">
+          <a id="btn-jump-schedule" class="btn" href="#schedule">Schedule</a>
           <a id="btn-jump-request" class="btn btn-accent" href="#request">Request form</a>
           <a id="btn-jump-people" class="btn" href="#people">Who to contact</a>
         </div>
@@ -61,11 +62,33 @@
       </aside>
     </section>
 
+    <!-- SCHEDULE -------------------------------------------- -->
+    <section class="section" id="schedule">
+      <div class="section-head">
+        <p class="eyebrow">Check before you request</p>
+        <h2><span class="index">01 //</span> Robot schedule</h2>
+        <p class="lede">
+          When the UR10e is free, booked or unavailable. Days outside the
+          schedule must be requested directly with the supervisors.
+        </p>
+      </div>
+
+      <div class="cal-legend">
+        <span class="cal-key cal-available">Available</span>
+        <span class="cal-key cal-requested">Requested</span>
+        <span class="cal-key cal-booked">Booked</span>
+        <span class="cal-key cal-event">Event</span>
+        <span class="cal-key cal-unavailable">Unavailable</span>
+        <span class="cal-key cal-ask">Ask supervisors</span>
+      </div>
+      <div class="calendar" id="schedule-calendar"></div>
+    </section>
+
     <!-- REQUEST FORM ---------------------------------------- -->
     <section class="section" id="request">
       <div class="section-head">
         <p class="eyebrow">Before you book</p>
-        <h2><span class="index">01 //</span> Robot use request</h2>
+        <h2><span class="index">02 //</span> Robot use request</h2>
         <p class="lede">
           Fill in every field. The request goes to the Teaching Assistant with
           the Head of Department in copy — we need the dates and the routine
@@ -177,7 +200,7 @@
     <section class="section" id="people">
       <div class="section-head">
         <p class="eyebrow">CAAD department</p>
-        <h2><span class="index">02 //</span> Who to contact</h2>
+        <h2><span class="index">03 //</span> Who to contact</h2>
         <p class="lede">
           Questions about a project, a permission, or the lab itself go to
           either of us directly.
@@ -206,6 +229,7 @@
   </main>
 
   <script src="data.js?v=7"></script>
-  <script src="app.js?v=7"></script>
+  <script src="schedule.js?v=1"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>

@@ -405,6 +405,75 @@
   }
 
   /* ----------------------- WIRING --------------------------- */
+  /* ----------------------- SCHEDULE ------------------------ */
+  // Month calendar built from schedule.js. Weekly pattern first, then
+  // date-range exceptions in order; outside the valid range: ask supervisors.
+  function renderSchedule(host) {
+    const sched = window.RoboLabSchedule;
+    if (!host || !sched) return;
+
+    const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    const MONTHS = ["January", "February", "March", "April", "May", "June", "July",
+      "August", "September", "October", "November", "December"];
+    const parse = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+    const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const from = parse(sched.validFrom), until = parse(sched.validUntil);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+
+    const entryFor = (d) => {
+      if (d < from || d > until) return { status: "ask", title: "Ask supervisors" };
+      let entry = (sched.weekly || {})[DAY_KEYS[d.getDay()]] || { status: "ask", title: "Ask supervisors" };
+      const key = iso(d);
+      (sched.exceptions || []).forEach((ex) => {
+        if (key >= ex.from && key <= (ex.to || ex.from)) entry = ex;
+      });
+      return entry;
+    };
+
+    // Start on the current month when it is in range, else the first month.
+    let view = new Date(Math.min(Math.max(today, from), until));
+    view = new Date(view.getFullYear(), view.getMonth(), 1);
+    const first = new Date(from.getFullYear(), from.getMonth(), 1);
+    const last = new Date(until.getFullYear(), until.getMonth(), 1);
+
+    const draw = () => {
+      const y = view.getFullYear(), m = view.getMonth();
+      const lead = (new Date(y, m, 1).getDay() + 6) % 7;   // Monday-first grid
+      const days = new Date(y, m + 1, 0).getDate();
+      let cells = "";
+      for (let i = 0; i < lead; i++) cells += `<div class="cal-cell cal-empty" aria-hidden="true"></div>`;
+      for (let n = 1; n <= days; n++) {
+        const d = new Date(y, m, n);
+        const e = entryFor(d);
+        const cls = ["cal-cell", `cal-${esc(e.status)}`];
+        if (d < today) cls.push("cal-past");
+        if (+d === +today) cls.push("cal-today");
+        const wd = d.toLocaleDateString("en-GB", { weekday: "short" });
+        cells += `<div class="${cls.join(" ")}">
+          <div class="cal-date"><span class="cal-wd">${wd}</span> ${n}</div>
+          <div class="cal-title">${esc(e.title || "")}</div>
+          ${e.time ? `<div class="cal-time">${esc(e.time)}</div>` : ""}
+          ${e.who ? `<div class="cal-who">${esc(e.who)}</div>` : ""}
+        </div>`;
+      }
+      host.innerHTML = `
+        <div class="cal-head">
+          <button class="btn cal-nav" data-step="-1" ${view <= first ? "disabled" : ""} aria-label="Previous month">‹</button>
+          <h3>${MONTHS[m]} ${y}</h3>
+          <button class="btn cal-nav" data-step="1" ${view >= last ? "disabled" : ""} aria-label="Next month">›</button>
+        </div>
+        <div class="cal-grid">
+          ${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((w) => `<div class="cal-dow">${w}</div>`).join("")}
+          ${cells}
+        </div>`;
+      host.querySelectorAll(".cal-nav").forEach((b) => b.addEventListener("click", () => {
+        view = new Date(y, m + Number(b.dataset.step), 1);
+        draw();
+      }));
+    };
+    draw();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     if (page === "home") {
       renderRoadmap(document.getElementById("roadmap-grid"));
@@ -448,6 +517,7 @@
     }
 
     if (page === "contact") {
+      renderSchedule(document.getElementById("schedule-calendar"));
       renderContactPeople(document.getElementById("contact-people"));
       wireRequestForm(document.getElementById("robot-request-form"));
     }

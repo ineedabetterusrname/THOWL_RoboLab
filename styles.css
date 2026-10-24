@@ -1453,3 +1453,40 @@ pre code {
 .startup-step img { display: block; width: 100%; height: auto; background: var(--soft); }
 .startup-step figcaption { display: grid; gap: 4px; padding: 14px 16px 16px; color: var(--ink-2); }
 .startup-step .step-no { font-family: monospace; color: var(--accent); font-weight: 700; }
+
+/* ---------- Robot schedule calendar ---------- */
+.cal-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 14px; font-size: 13px; color: var(--muted); }
+.cal-key::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; background: var(--cal-c); }
+.calendar { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.cal-head h3 { margin: 0; }
+.cal-nav { min-width: 40px; justify-content: center; }
+.cal-nav[disabled] { opacity: .35; pointer-events: none; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.cal-dow { font-size: 12px; font-weight: 600; color: var(--muted); text-align: center; padding-bottom: 4px; }
+.cal-cell {
+  min-height: 96px; padding: 8px; border-radius: 8px; font-size: 12px; line-height: 1.35;
+  background: var(--cal-bg); border-left: 3px solid var(--cal-c); color: var(--ink-2); overflow-wrap: anywhere;
+}
+.cal-empty { background: transparent; border: 0; }
+.cal-date { font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.cal-wd { display: none; }
+.cal-title { font-weight: 600; }
+.cal-time, .cal-who { color: var(--muted); }
+.cal-past { opacity: .45; }
+.cal-today { box-shadow: inset 0 0 0 2px var(--ink); }
+.cal-available   { --cal-c: #2a8a82; --cal-bg: #e1f0ee; }
+.cal-requested   { --cal-c: #d9a521; --cal-bg: #fbf2d9; }
+.cal-booked      { --cal-c: #1f3552; --cal-bg: #e7edf4; }
+.cal-event       { --cal-c: #e2003c; --cal-bg: #fde9ef; }
+.cal-unavailable { --cal-c: #9aa0a8; --cal-bg: #eeeeea; }
+.cal-ask         { --cal-c: #c9ccd0; --cal-bg: transparent; }
+@media (max-width: 760px) {
+  .calendar { padding: 12px; }
+  .cal-grid { grid-template-columns: 1fr; }
+  .cal-dow, .cal-cell.cal-empty { display: none; }
+  .cal-cell { min-height: 0; display: grid; grid-template-columns: 72px 1fr; column-gap: 8px; }
+  .cal-cell > :not(.cal-date) { grid-column: 2; }
+  .cal-date { grid-row: span 3; }
+  .cal-wd { display: inline; }
+}
