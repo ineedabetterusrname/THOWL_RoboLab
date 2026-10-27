@@ -30,6 +30,7 @@ window.RoboLabSchedule = {
 
   exceptions: [
     { from: "2026-10-27", status: "requested", title: "Booking requested", time: "14:00 – 17:00", who: "Soroush" },
+    { from: "2026-10-28", status: "booked", title: "Booked", time: "All day", who: "Hrithik" },
     { from: "2026-11-09", to: "2026-11-22", status: "unavailable", title: "Unavailable" },
     { from: "2026-11-17", to: "2026-11-18", status: "event", title: "RESET Conference" },
   ],
